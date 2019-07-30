@@ -8,7 +8,7 @@ class Person:
             language: str
                 The language used by the person
         """
-
+#jhgjhgjh
         self.name = name
         self.language = language
 
@@ -60,6 +60,7 @@ def main():
     print(hai.language)
     rectangle = Shape(100,45)
     print(rectangle.area())
+    print("Hello world")
 
 if __name__ == "__main__":
     main()
