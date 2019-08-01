@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 cnx = mysql.connector.connect(user='oucru', password='vitrygtr',
-                              host='127.0.0.1',
+                              host='localhost',
                               database='seqbox')
 
 

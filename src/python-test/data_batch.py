@@ -2,8 +2,8 @@ import mysql.connector
 
 
 
-cnx = mysql.connector.connect(user='oucru', password='vitrygtr93',
-                              host='127.0.0.1',
+cnx = mysql.connector.connect(user='oucru', password='vitrygtr',
+                              host='localhost',
                               database='seqbox')
 
 
