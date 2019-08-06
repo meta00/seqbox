@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Sample</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.id_sample.label }}<br>
+            {{ form.id_sample(size=64) }}<br>
+            {% for error in form.id_sample.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.num_seq.label }}<br>
+            {{ form.num_seq(size=64) }}<br>
+            {% for error in form.num_seq.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.date_time.label }}<br>
+            {{ form.date_time(size=64) }}<br>
+            {% for error in form.date_time.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.organism.label }}<br>
+            {{ form.organism(size=64) }}<br>
+            {% for error in form.organism.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.batch.label }}<br>
+            {{ form.batch(size=64) }}<br>
+            {% for error in form.batch.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.location.label }}<br>
+            {{ form.location(size=64) }}<br>
+            {% for error in form.location.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.path_r1.label }}<br>
+            {{ form.path_r1(size=64) }}<br>
+            {% for error in form.path_r1.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.path_r2.label }}<br>
+            {{ form.path_r2(size=64) }}<br>
+            {% for error in form.path_r2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.result1.label }}<br>
+            {{ form.result1(size=64) }}<br>
+            {% for error in form.result1.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.result2.label }}<br>
+            {{ form.result2(size=64) }}<br>
+            {% for error in form.result2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
