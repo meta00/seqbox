@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Batch</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.id_batch.label }}<br>
+            {{ form.id_batch(size=64) }}<br>
+            {% for error in form.id_batch.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.name_batch.label }}<br>
+            {{ form.name_batch(size=64) }}<br>
+            {% for error in form.name_batch.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.date_batch.label }}<br>
+            {{ form.date_batch(size=64) }}<br>
+            {% for error in form.date_batch.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.instrument.label }}<br>
+            {{ form.instrument(size=64) }}<br>
+            {% for error in form.instrument.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.primer.label }}<br>
+            {{ form.primer(size=64) }}<br>
+            {% for error in form.primer.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

@@ -324,18 +324,18 @@ class StudyForm(FlaskForm):
     date_study = StringField('date_study', validators=[DataRequired()])
     result_study = StringField('result_study',validators=[DataRequired()])
 
-    def id_study(self, id_study):
+    def validate_id_study(self, id_study):
         study = Study.query.filter_by(id_study=id_study.data).first()
         if study is not None:
             raise ValidationError('Please use a different id_study.')
     
 
-    def date_study(self, date_study):
+    def validate_date_study(self, date_study):
         study = Study.query.filter_by(date_study=date_study.data).first()
         if study is not None:
             raise ValidationError('Please use a different date_study.')
 
-    def result_study(self, result_study):
+    def validate_result_study(self, result_study):
         study = Study.query.filter_by(result_study=result_study.data).first()
         if study is not None:
             raise ValidationError('Please use a different result_study.')
@@ -346,12 +346,12 @@ class Sample_studyForm(FlaskForm):
     id_sample = StringField('id_sample', validators=[DataRequired()])
     
 
-    def id_study(self, id_study):
+    def validate_id_study(self, id_study):
         sample_study = Sample_study.query.filter_by(id_study=id_study.data).first()
         if sample_study is not None:
             raise ValidationError('Please use a different id_study.')
 
-    def id_sample(self, id_sample):
+    def validate_id_sample(self, id_sample):
         sample_study = Sample_study.query.filter_by(id_sample=id_sample.data).first()
         if sample_study is not None:
             raise ValidationError('Please use a different id_sample.')

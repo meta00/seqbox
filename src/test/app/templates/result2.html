@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Result2</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.id_result2.label }}<br>
+            {{ form.id_result2(size=64) }}<br>
+            {% for error in form.id_result2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.mykrobe_version.label }}<br>
+            {{ form.mykrobe_version(size=64) }}<br>
+            {% for error in form.mykrobe_version.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.phylo_grp.label }}<br>
+            {{ form.phylo_grp(size=64) }}<br>
+            {% for error in form.phylo_grp.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.phylo_grp_covg.label }}<br>
+            {{ form.phylo_grp_covg(size=64) }}<br>
+            {% for error in form.phylo_grp_covg.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.phylo_grp_depth.label }}<br>
+            {{ form.phylo_grp_depth(size=64) }}<br>
+            {% for error in form.phylo_grp_depth.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.species.label }}<br>
+            {{ form.species(size=64) }}<br>
+            {% for error in form.species.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.species_covg.label }}<br>
+            {{ form.species_covg(size=64) }}<br>
+            {% for error in form.species_covg.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.species_depth.label }}<br>
+            {{ form.species_depthh(size=64) }}<br>
+            {% for error in form.species_depth.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.lineage.label }}<br>
+            {{ form.lineage(size=64) }}<br>
+            {% for error in form.lineage.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.lineage_covg.label }}<br>
+            {{ form.lineage_covg(size=64) }}<br>
+            {% for error in form.lineage_covg.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.lineage_depth.label }}<br>
+            {{ form.lineage_depth(size=64) }}<br>
+            {% for error in form.lineage_depth.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.susceptibility.label }}<br>
+            {{ form.susceptibility(size=64) }}<br>
+            {% for error in form.susceptibility.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.variants.label }}<br>
+            {{ form.variants(size=64) }}<br>
+            {% for error in form.variants.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.genes.label }}<br>
+            {{ form.genes(size=64) }}<br>
+            {% for error in form.genes.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.drug.label }}<br>
+            {{ form.drug(size=64) }}<br>
+            {% for error in form.drug.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

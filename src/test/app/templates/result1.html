@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Result1</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.id_result1.label }}<br>
+            {{ form.id_result1(size=64) }}<br>
+            {% for error in form.id_result1.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.qc.label }}<br>
+            {{ form.qc(size=64) }}<br>
+            {% for error in form.qc.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.ql.label }}<br>
+            {{ form.ql(size=64) }}<br>
+            {% for error in form.ql.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(size=64) }}<br>
+            {% for error in form.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.snapper_variants.label }}<br>
+            {{ form.snapper_variants(size=64) }}<br>
+            {% for error in form.snapper_variants.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.snapper_ignored.label }}<br>
+            {{ form.snapper_ignored(size=64) }}<br>
+            {% for error in form.snapper_ignored.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.num_heterozygous.label }}<br>
+            {{ form.num_heterozygous(size=64) }}<br>
+            {% for error in form.num_heterozygous.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.mean_depth.label }}<br>
+            {{ form.mean_depth(size=64) }}<br>
+            {% for error in form.mean_depth.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.coverage.label }}<br>
+            {{ form.coverage(size=64) }}<br>
+            {% for error in form.coverage.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

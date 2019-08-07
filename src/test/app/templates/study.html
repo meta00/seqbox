@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Study</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.id_study.label }}<br>
+            {{ form.id_study(size=64) }}<br>
+            {% for error in form.id_study.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.date_study.label }}<br>
+            {{ form.date_study(size=64) }}<br>
+            {% for error in form.date_study.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.result_study.label }}<br>
+            {{ form.result_study(size=64) }}<br>
+            {% for error in form.result_study.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
