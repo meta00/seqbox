@@ -2,7 +2,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
-from app.models import User, Sample
+from app.models import User, Sample, Batch, Location, Result1, Result2, Study
 
 
 class LoginForm(FlaskForm):
@@ -40,11 +40,10 @@ class SampleForm(FlaskForm):
     path_r2 = StringField('path_r2',validators=[DataRequired()])
     batch =  StringField('batch',validators=[DataRequired()])
     location = StringField('location',validators=[DataRequired()])
-    result1 = StringField('result1',validators=[DataRequired()])
-    result2 = StringField('result2',validators=[DataRequired()])
+    result1 = StringField('result1')#,validators=[DataRequired()])
+    result2 = StringField('result2')#,validators=[DataRequired()])
 
     submit = SubmitField('Validate')
-
     def validate_id_sample(self, id_sample):
         sample = Sample.query.filter_by(id_sample=id_sample.data).first()
         if sample is not None:
@@ -85,15 +84,15 @@ class SampleForm(FlaskForm):
         if sample is not None:
             raise ValidationError('Please use a different location.')
 
-    def validate_result1(self,result1 ):
-        sample =Sample.query.filter_by(result1 =result1.data).first()
-        if sample is not None:
-            raise ValidationError('Please use a different result1 .')
+    #def validate_result1(self,result1 ):
+    #    sample =Sample.query.filter_by(result1 =result1.data).first()
+     #   if sample is not None:
+      #      raise ValidationError('Please use a different result1 .')
     
-    def validate_result2(self,result2):
-        sample =Sample.query.filter_by(result2=result2.data).first()
-        if sample is not None:
-            raise ValidationError('Please use a different result2.')
+   # def validate_result2(self,result2):
+    #    sample =Sample.query.filter_by(result2=result2.data).first()
+     #   if sample is not None:
+    #      raise ValidationError('Please use a different result2.')
 
 
 class BatchForm(FlaskForm):
@@ -323,7 +322,7 @@ class StudyForm(FlaskForm):
     id_study = StringField('id_study', validators=[DataRequired()])
     date_study = StringField('date_study', validators=[DataRequired()])
     result_study = StringField('result_study',validators=[DataRequired()])
-
+    submit = SubmitField('Validate')
     def validate_id_study(self, id_study):
         study = Study.query.filter_by(id_study=id_study.data).first()
         if study is not None:
@@ -344,7 +343,7 @@ class StudyForm(FlaskForm):
 class Sample_studyForm(FlaskForm):
     id_study = StringField('id_study', validators=[DataRequired()])
     id_sample = StringField('id_sample', validators=[DataRequired()])
-    
+    submit = SubmitField('Validate')
 
     def validate_id_study(self, id_study):
         sample_study = Sample_study.query.filter_by(id_study=id_study.data).first()

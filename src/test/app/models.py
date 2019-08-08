@@ -1,7 +1,8 @@
 from datetime import datetime
 from app import db, login
 from flask_login import UserMixin
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship,backref
+from sqlalchemy import ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -42,13 +43,16 @@ class Sample(db.Model):
     num_seq = db.Column(db.VARCHAR(60))
     date_time =db.Column(db.DATETIME)
     organism = db.Column(db.VARCHAR(30)) 
-    batch = db.Column(db.VARCHAR(50),db.ForeignKey('id_batch'))
-    location = db.Column(db.VARCHAR(50), db.ForeignKey('id_location'))
+    batch = db.Column(db.VARCHAR(50),db.ForeignKey("batch.id_batch"))
+    batchs = db.relationship("Batch", backref=backref("sample",uselist=False))
+    location = db.Column(db.VARCHAR(50), db.ForeignKey("location.id_location"))
+    locations = db.relationship("Location", backref=backref("sample",uselist=False))
     path_r1 = db.Column(db.VARCHAR(40))
     path_r2 = db.Column(db.VARCHAR(40))
-    result1 = db.Column(db.Integer, db.ForeignKey('id_result1'))
-    result2 = db.Column(db.Integer, db.ForeignKey('id_result2'))
-    #child = db.relationship('Child', backref='author', lazy='dynamic')
+    result1 = db.Column(db.Integer, db.ForeignKey("result1.id_result1")) 
+    results1 = db.relationship("Result1", backref=backref("sample",uselist=False))
+    result2 = db.Column(db.Integer, db.ForeignKey("result2.id_result2"))
+    results2 = db.relationship("Result2", backref=backref("sample",uselist=False))
     
     def __repr__(self):
         return '<Sample {}>'.format(self.num_seq)
@@ -60,7 +64,7 @@ class Batch(db.Model):
     date_batch = db.Column(db.DATE)
     instrument = db.Column(db.VARCHAR(250))
     primer = db.Column(db.VARCHAR(100))
-
+    #samples = db.relationship('Sample', backref='author', lazy='dynamic')
     def __repr__(self):
         return '<Batch {}>'.format(self.name_batch)
 
@@ -70,6 +74,7 @@ class Location(db.Model):
     country  = db.Column(db.VARCHAR(60))
     province = db.Column(db.VARCHAR(40))
     city = db.Column(db.VARCHAR(50))
+    #samples = db.relationship('Sample', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<Location {}>'.format(self.continent)
@@ -82,29 +87,30 @@ class Result1(db.Model):
     snapper_variants = db.Column(db.Integer)
     snapper_ignored = db.Column(db.Integer)
     num_heterozygous = db.Column(db.Integer)
-    mean_depth = db.Column(db.double)
-    coverage = db.Column(db.double)
+    mean_depth = db.Column(db.CHAR)
+    coverage = db.Column(db.CHAR)
+    #samples = db.relationship('Sample', backref='author', lazy='dynamic')
     def __repr__(self):
         return '<Result1 {}>'.format(self.qc)
 
 class Result2(db.Model):
     
     id_result2 = db.Column(db.Integer, primary_key=True)
-    mykrobe_version = db.Column(db.varchar(50))
-    phylo_grp = db.Column(db.varchar(60))
-    phylo_grp_covg = db.Column(db.double)
-    phylo_grp_depth = db.Column(db.double)
-    species = db.Column(db.varchar(50))
-    species_covg = db.Column(db.double)
-    species_depth = db.Column(db.double)
-    lineage = db.Column(db.varchar(50))
-    lineage_covg = db.Column(db.double)
-    lineage_depth = db.Column(db.double)
-    susceptibility = db.Column(db.varchar(50))
-    variants = db.Column(db.varchar(80))
-    genes = db.Column(db.varchar(100))
-    drug = db.Column(db.varchar(90))
-    
+    mykrobe_version = db.Column(db.VARCHAR(50))
+    phylo_grp = db.Column(db.VARCHAR(60))
+    phylo_grp_covg = db.Column(db.CHAR)
+    phylo_grp_depth = db.Column(db.CHAR)
+    species = db.Column(db.VARCHAR(50))
+    species_covg = db.Column(db.CHAR)
+    species_depth = db.Column(db.CHAR)
+    lineage = db.Column(db.VARCHAR(50))
+    lineage_covg = db.Column(db.CHAR)
+    lineage_depth = db.Column(db.CHAR)
+    susceptibility = db.Column(db.VARCHAR(50))
+    variants = db.Column(db.VARCHAR(80))
+    genes = db.Column(db.VARCHAR(100))
+    drug = db.Column(db.VARCHAR(90))
+    #samples = db.relationship('Sample', backref='author', lazy='dynamic')
     def __repr__(self):
         return '<Result2 {}>'.format(self.mykrobe_version)
     
@@ -122,16 +128,3 @@ class Sample_study(db.Model):
     def __repr__(self):
         return '<Sample_study {}>'.format(self.id_sample)
 
-#class Child(db.Model):
-    #id_sample = db.Column(db.VARCHAR(20),primary_key=True)
-    #body = db.Column(db.String(140))
-    #timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    #batch = db.Column(db.VARCHAR(50),db.ForeignKey('id_batch'))
-    #location = db.Column(db.VARCHAR(50), db.ForeignKey('id_location'))
-    #result1 = db.Column(db.Integer, db.ForeignKey('id_result1'))
-    #result2 = db.Column(db.Integer, db.ForeignKey('id_result2'))
-    #def __repr__(self):
-        #return '<Child {}>'.format(self.body)
-        #return '<Child {}>'.format(self.location)
-        #return '<Child {}>'.format(self.result1)
-        #return '<Child {}>'.format(self.result2)

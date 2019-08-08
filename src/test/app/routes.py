@@ -2,23 +2,21 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, SampleForm
-from app.models import User, Sample
+from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, Result2Form,StudyForm, Sample_studyForm  
+from app.models import User, Sample, Result1,Result2, Batch,Location,Study,Sample_study
 
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
+ 
     posts = [
         {
-            'author': {'username': 'lydia'},
-            'body': 'welcome to oucru!'
-        },
-        {
-            'author': {'username': 'labo'},
-            'body': 'welcome to seqbox!'
+            'author': {'username': 'Oucru'},
+            'body': 'Welcome to Seqbox Plateform!'
         }
+        
     ]
     return render_template('index.html', title='Home', posts=posts)
 
@@ -65,7 +63,7 @@ def register():
 def sample():
     form = SampleForm()
     if form.validate_on_submit():
-        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
+        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
         db.session.add(sample)
         db.session.commit()
         flash('Congratulations, you are now a registered sample!')
@@ -118,7 +116,7 @@ def result2():
 
 @app.route('/study', methods=['GET', 'POST'])
 def study():
-    form = studyForm()
+    form = StudyForm()
     if form.validate_on_submit():
         study = Study(id_study=form.id_study.data, date_study=form.date_study.data, result_study=form.result_study.data)
         db.session.add(study)
@@ -129,7 +127,7 @@ def study():
 
 @app.route('/sample_study', methods=['GET', 'POST'])
 def sample_study():
-    form = sample_studyForm()
+    form = Sample_studyForm()
     if form.validate_on_submit():
         sample_study = Sample_study(id_sample=form.id_sample.data,id_study=form.id_study.data)
         db.session.add(sample_study)
