@@ -7,6 +7,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(UserMixin, db.Model):
+    """This is a class for User table.
+    
+    Arguments:
+        UserMixin {[type]} -- [description of user]
+        db {[type]} -- [description of database SQLAlchemy]
+    
+    Returns:
+        [type] -- [description]
+    """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -25,19 +34,48 @@ class User(UserMixin, db.Model):
 
 @login.user_loader
 def load_user(id):
+    """[summary]
+    
+    Arguments:
+        id {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
     return User.query.get(int(id))
 
 
 class Post(db.Model):
+    """[summary]
+    
+    Arguments:
+        db {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
+        """[summary]
+        
+        Returns:
+            [type] -- [description]
+        """
         return '<Post {}>'.format(self.body)
 
 class Sample(db.Model):
+    """[summary]
+    
+    Arguments:
+        db {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
 
     id_sample = db.Column(db.VARCHAR(20),primary_key=True)
     num_seq = db.Column(db.VARCHAR(60))
@@ -59,6 +97,14 @@ class Sample(db.Model):
 
 
 class Batch(db.Model):
+    """[summary]
+    
+    Arguments:
+        db {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
     id_batch = db.Column(db.VARCHAR(30),primary_key=True)
     name_batch = db.Column(db.VARCHAR(50))
     date_batch = db.Column(db.DATE)
@@ -125,6 +171,7 @@ class Study(db.Model):
 class Sample_study(db.Model):
     id_sample = db.Column(db.VARCHAR(40),primary_key = True)
     id_study = db.Column(db.VARCHAR(50),primary_key = True)
+    
     def __repr__(self):
         return '<Sample_study {}>'.format(self.id_sample)
 

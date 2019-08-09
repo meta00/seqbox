@@ -23,9 +23,25 @@ class User(UserMixin, db.Model):
 
 @login.user_loader
 def load_user(id):
+    """[summary]
+    
+    Arguments:
+        id {[int]} -- [description]
+    
+    Returns:
+        [int] -- [description]
+    """
     return User.query.get(int(id))
 
 class Post(db.Model):
+    """[summary]
+    
+    Arguments:
+        db {[str]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index = True, default = datetime.utcnow)

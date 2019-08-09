@@ -10,6 +10,11 @@ from app.models import User, Sample, Result1,Result2, Batch,Location,Study,Sampl
 @app.route('/index')
 @login_required
 def index():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
  
     posts = [
         {
@@ -23,6 +28,11 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -41,12 +51,22 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
     logout_user()
     return redirect(url_for('index'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
@@ -61,6 +81,11 @@ def register():
 
 @app.route('/sample', methods=['GET', 'POST'])
 def sample():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
     form = SampleForm()
     if form.validate_on_submit():
         sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)

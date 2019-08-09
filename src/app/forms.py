@@ -6,6 +6,7 @@ from app.models import User, Sample, Batch, Location, Result1, Result2, Study
 
 
 class LoginForm(FlaskForm):
+   
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
