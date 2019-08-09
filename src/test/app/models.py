@@ -64,7 +64,7 @@ class Batch(db.Model):
     date_batch = db.Column(db.DATE)
     instrument = db.Column(db.VARCHAR(250))
     primer = db.Column(db.VARCHAR(100))
-    #samples = db.relationship('Sample', backref='author', lazy='dynamic')
+    
     def __repr__(self):
         return '<Batch {}>'.format(self.name_batch)
 
@@ -74,7 +74,7 @@ class Location(db.Model):
     country  = db.Column(db.VARCHAR(60))
     province = db.Column(db.VARCHAR(40))
     city = db.Column(db.VARCHAR(50))
-    #samples = db.relationship('Sample', backref='author', lazy='dynamic')
+   
 
     def __repr__(self):
         return '<Location {}>'.format(self.continent)
@@ -89,7 +89,7 @@ class Result1(db.Model):
     num_heterozygous = db.Column(db.Integer)
     mean_depth = db.Column(db.CHAR)
     coverage = db.Column(db.CHAR)
-    #samples = db.relationship('Sample', backref='author', lazy='dynamic')
+   
     def __repr__(self):
         return '<Result1 {}>'.format(self.qc)
 
@@ -110,7 +110,7 @@ class Result2(db.Model):
     variants = db.Column(db.VARCHAR(80))
     genes = db.Column(db.VARCHAR(100))
     drug = db.Column(db.VARCHAR(90))
-    #samples = db.relationship('Sample', backref='author', lazy='dynamic')
+  
     def __repr__(self):
         return '<Result2 {}>'.format(self.mykrobe_version)
     
