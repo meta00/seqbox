@@ -1,3 +1,6 @@
+"""
+SQLAlchemy : Using ORM(Oject Relational Mapper)
+"""
 from datetime import datetime
 from app import db, login
 from flask_login import UserMixin
@@ -7,15 +10,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(UserMixin, db.Model):
-    """This is a class for User table.
+    """This is a Class for User inherits from db.Model,a base class for all models from Flask-SQLAlchemy.
     
     Arguments:
-        UserMixin {[type]} -- [description of user]
-        db {[type]} -- [description of database SQLAlchemy]
+        UserMixin {class} --[ This provides default implementations for the methods that Flask-Login expects user objects to have.]
+        db {object} -- [Object that represents the database.]
     
-    Returns:
-        [type] -- [description]
     """
+    # These class variables define the column properties
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -23,24 +25,33 @@ class User(UserMixin, db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __repr__(self):
+        """[The __repr__ method tells Python how to print objects of this class.]
+        
+        Returns:
+            [string] -- [return User model representation. ]
+        """
         return '<User {}>'.format(self.username)
 
     def set_password(self, password):
+        """[The set_password method to hash ad store a password in the User model.]
+        """
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
+        """[The check_password method to verify the password.  ]
+        
+        Returns:
+            [str] -- [Returns True if the password matched, False otherwise.]
+        """
         return check_password_hash(self.password_hash, password)
 
 
 @login.user_loader
 def load_user(id):
-    """[summary]
+    """[The @login.user_loader decorated function is used by Flask-Login to convert a stored user ID to an actual user instance.
+    The user loader callack function receives a user identifier as a Unicode string the return value of the function 
+    must be the user object if available or None otherwise. ]  
     
-    Arguments:
-        id {[type]} -- [description]
-    
-    Returns:
-        [type] -- [description]
     """
     return User.query.get(int(id))
 
@@ -68,7 +79,8 @@ class Post(db.Model):
         return '<Post {}>'.format(self.body)
 
 class Sample(db.Model):
-    """[summary]
+
+    """[Define model 'Sample' mapped to table 'sample']
     
     Arguments:
         db {[type]} -- [description]
@@ -97,7 +109,7 @@ class Sample(db.Model):
 
 
 class Batch(db.Model):
-    """[summary]
+    """[Define model 'Batch' mapped to table 'batch']
     
     Arguments:
         db {[type]} -- [description]
@@ -115,6 +127,14 @@ class Batch(db.Model):
         return '<Batch {}>'.format(self.name_batch)
 
 class Location(db.Model):
+    """[Define model 'Location' mapped to table 'location']
+    
+    Arguments:
+        db {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
     id_location = db.Column(db.VARCHAR(25),primary_key=True)
     continent = db.Column(db.VARCHAR(80))
     country  = db.Column(db.VARCHAR(60))
@@ -126,6 +146,14 @@ class Location(db.Model):
         return '<Location {}>'.format(self.continent)
 
 class Result1(db.Model):
+    """[Define model 'Result1' mapped to table 'result1']
+    
+    Arguments:
+        db {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
     id_result1 = db.Column(db.Integer,primary_key=True)
     qc = db.Column(db.VARCHAR(60))
     ql = db.Column(db.VARCHAR(60))
@@ -140,6 +168,12 @@ class Result1(db.Model):
         return '<Result1 {}>'.format(self.qc)
 
 class Result2(db.Model):
+
+    """[Define model 'Result2' mapped to table 'result2']
+    
+    Returns:
+        [type] -- [description]
+    """
     
     id_result2 = db.Column(db.Integer, primary_key=True)
     mykrobe_version = db.Column(db.VARCHAR(50))
@@ -161,6 +195,12 @@ class Result2(db.Model):
         return '<Result2 {}>'.format(self.mykrobe_version)
     
 class Study(db.Model):
+
+    """[Define model 'Study' mapped to table 'study']
+    
+    Returns:
+        [type] -- [description]
+    """
     id_study = db.Column(db.VARCHAR(50),primary_key=True)
     date_study = db.Column(db.DATE)
     result_study = db.Column(db.VARCHAR(80))
@@ -169,6 +209,12 @@ class Study(db.Model):
         return '<Study {}>'.format(self.date_study)
 
 class Sample_study(db.Model):
+
+    """[Define model 'Sample_study' mapped to table 'sample_study']
+    
+    Returns:
+        [type] -- [description]
+    """
     id_sample = db.Column(db.VARCHAR(40),primary_key = True)
     id_study = db.Column(db.VARCHAR(50),primary_key = True)
     

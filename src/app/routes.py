@@ -10,10 +10,10 @@ from app.models import User, Sample, Result1,Result2, Batch,Location,Study,Sampl
 @app.route('/index')
 @login_required
 def index():
-    """[summary]
     
-    Returns:
-        [type] -- [description]
+    """[The way Flask-Login protects a view function against anonymous users is with a decorator called @login_required. 
+    When we add this decorator to a view function below the @app.route decorators from Flask, the function becomes protected and will not allow access to users that are not authenticated.  ]
+
     """
  
     posts = [
@@ -28,12 +28,19 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """[summary]
+
+    """[The view function creates a LoginForm object and uses it like the simple form.
+    when the request is of type GET,the view function just redersz the template,
+    which in turn displays the form.when the form is submitted i a POST request Flask-WTF's 
+    validate_on_submit() function validates the form variables, and then attempts to log the user in.]
     
-    Returns:
-        [type] -- [description]
     """
     if current_user.is_authenticated:
+
+        """[The current_user variable comes from Flask-Login and can be used  to obtain the user object that represents the client of the request. 
+        The value of this variable can be a user object from the database or a special anonymous user object if the user did not log in yet.
+        The is_authenticated check if the user is logged in or not and redirect the index page when user is logged in. ]
+        """
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
@@ -73,8 +80,11 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
+        
+        #save the model to the database
         db.session.add(user)
         db.session.commit()
+        
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
@@ -89,8 +99,11 @@ def sample():
     form = SampleForm()
     if form.validate_on_submit():
         sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
+        
+        #save the model to the database
         db.session.add(sample)
         db.session.commit()
+        
         flash('Congratulations, you are now a registered sample!')
         return redirect(url_for('index'))
     return render_template('sample.html', title='validate', form=form)
@@ -100,8 +113,11 @@ def batch():
     form = BatchForm()
     if form.validate_on_submit():
         batch = Batch(id_batch=form.id_batch.data, name_batch=form.name_batch.data, date_batch=form.date_batch.data, instrument=form.instrument.data, primer=form.primer.data)
+        
+        #save the model to the database
         db.session.add(batch)
         db.session.commit()
+        
         flash('Congratulations, you are now a registered batch!')
         return redirect(url_for('index'))
     return render_template('batch.html', title='validate', form=form)
@@ -111,8 +127,11 @@ def location():
     form = LocationForm()
     if form.validate_on_submit():
         location = Location(id_location=form.id_location.data, continent=form.continent.data, country=form.country.data, province=form.province.data, city=form.city.data)
+        
+        #save the model to the database
         db.session.add(location)
         db.session.commit()
+        
         flash('Congratulations, you are now a registered location!')
         return redirect(url_for('index'))
     return render_template('location.html', title='validate', form=form)
@@ -122,8 +141,11 @@ def result1():
     form = Result1Form()
     if form.validate_on_submit():
         result1 = Result1(id_result1=form.id_result1.data, qc=form.qc.data, ql=form.ql.data, description=form.description.data, snapper_variants=form.snapper_variants.data, snapper_ignored=form.snapper_ignored.data, num_heterozygous=form.num_heterozygous.data, mean_depth=form.mean_depth.data, coverage=form.coverage.data)
+        
+        #save the model to the database
         db.session.add(result1)
         db.session.commit()
+        
         flash('Congratulations, you are now a registered result1!')
         return redirect(url_for('index'))
     return render_template('result1.html', title='validate', form=form)
@@ -133,8 +155,11 @@ def result2():
     form = Result2Form()
     if form.validate_on_submit():
         result2 = Result2(id_result2=form.id_result2.data, mykrobe_version=form.mykrobe_version.data, phylo_grp=form.phylo_grp.data, phylo_grp_covg=form.phylo_grp_covg.data, phylo_grp_depth=form.phylo_grp_depth.data, species=form.species.data, species_covg=form.species_covg.data, species_depth=form.species_depth.data, lineage=form.lineage.data, lineage_covg=form.lineage_covg.data, lineage_depth=form.lineage_depth.data, susceptibility=form.susceptibility.data,variants=form.variants.data,genes=form.genes.data,drug=form.drug.data)
+        
+        #save the model to the database
         db.session.add(result2)
         db.session.commit()
+        
         flash('Congratulations, you are now a registered result2!')
         return redirect(url_for('index'))
     return render_template('result2.html', title='validate', form=form)
@@ -144,8 +169,11 @@ def study():
     form = StudyForm()
     if form.validate_on_submit():
         study = Study(id_study=form.id_study.data, date_study=form.date_study.data, result_study=form.result_study.data)
+        
+        #save the model to the database
         db.session.add(study)
         db.session.commit()
+
         flash('Congratulations, you are now a registered study!')
         return redirect(url_for('index'))
     return render_template('study.html', title='validate', form=form)
@@ -155,8 +183,11 @@ def sample_study():
     form = Sample_studyForm()
     if form.validate_on_submit():
         sample_study = Sample_study(id_sample=form.id_sample.data,id_study=form.id_study.data)
+        
+        #save the model to the database
         db.session.add(sample_study)
         db.session.commit()
+        
         flash('Congratulations, you are now a registered sample_study!')
         return redirect(url_for('index'))
     return render_template('sample_study.html', title='validate', form=form)
