@@ -5,7 +5,6 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, Result2Form,StudyForm, Sample_studyForm  
 from app.models import User, Sample, Result1,Result2, Batch,Location,Study,Sample_study
 
-
 @app.route('/')
 @app.route('/index')
 @login_required

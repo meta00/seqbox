@@ -4,22 +4,23 @@
     <h1>Hi, {{ current_user.username }}!</h1>
     {% for post in posts %}
     <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
-        <p> <a href="{{ url_for('sample') }}">Sample</a></p>
-        <p> <a href="{{ url_for('location') }}">Location</a></p>
-        <p> <a href="{{ url_for('batch') }}">Batch</a></p>
-        <p> <a href="{{ url_for('result1') }}">Result1</a></p>
-        <p> <a href="{{ url_for('result2') }}">Result2</a></p>
+        
         <body>
-            <select onchange ="if (this.value)window.location.href=this.value">
-                <option value="/seqbox">Seqbox<option>
-                <option value="/sample">Sample<option>
-                <option value="/batch">Batch<option>
-                <option value="/location">Location<option>
-                <option value="/result1">Result1<option>
-                <option value="/result2">Result2<option>
-                <option value="/study">Study<option>
-                <option value="/sample_study">Sample_study<option>
-                </select>
+                <form action="/" method="post"></form>
+                    <select  onchange ="if (this.value)window.location.href=this.value">
+                        
+                        <option value="/Seqbox">Sample<option>
+                        <option value="/sample">Sample<option>
+                        <option value="/batch">Batch<option>
+                        <option value="/location">Location<option>
+                        <option value="/result1">Result1<option>
+                        <option value="/result2">Result2<option>
+                        <option value="/study">Study<option>
+                        <option value="/sample_study">Sample_study<option>
+                    </select>
+                    <input type="submit" value="Add">
+                </form>
+                
     </div>
     {% endfor %}
     

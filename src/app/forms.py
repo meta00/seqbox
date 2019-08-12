@@ -33,6 +33,7 @@ class RegistrationForm(FlaskForm):
 
 
 class SampleForm(FlaskForm):
+    
     id_sample = StringField('id_sample', validators=[DataRequired()])
     num_seq = StringField('num_seq', validators=[DataRequired()])
     date_time = StringField('date_time')

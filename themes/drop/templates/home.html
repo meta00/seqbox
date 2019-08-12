@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Dropdown Example</title>
+    </head>
+    <body>
+        {% if data %}
+            <div>
+                <h3>Monthly Data</h3>
+                <p>{{ data }}</p>
+            </div>
+        {% endif %}
+        <form action="/" method="post">
+            <select name="month">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March" selected >March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+            </select>
+            <input type="submit" value="Select Month">
+        </form>
+    </body>
+</html>

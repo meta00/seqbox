@@ -13,3 +13,38 @@
 </select>
 </body>
 </html>
+<html>
+    <head>
+        <title>Dropdown Example</title>
+    </head>
+    <body>
+        {% if data %}
+            <div>
+                <h3>Monthly Data</h3>
+                <p>{{ data }}</p>
+            </div>
+        {% endif %}
+        <form action="/" method="post">
+            <select name="month">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March" selected >March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+            </select>
+            <input type="submit" value="Select Month">
+        </form>
+    </body>
+</html>
+
+#avant
+<select onchange ="if (this.value)window.location.href=this.value">
+        <option value="/seqbox">Seqbox<option>
+        <option value="/sample">Sample<option>
+        <option value="/batch">Batch<option>
+        <option value="/location">Location<option>
+        <option value="/result1">Result1<option>
+        <option value="/result2">Result2<option>
+        <option value="/study">Study<option>
+        <option value="/sample_study">Sample_study<option>
+        </select>

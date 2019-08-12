@@ -14,11 +14,8 @@ def index():
         {
             'author': {'username': 'lydia'},
             'body': 'welcome to oucru!'
-        },
-        {
-            'author': {'username': 'labo'},
-            'body': 'welcome to seqbox!'
         }
+        
     ]
     return render_template('index.html', title='Home', posts=posts)
 
