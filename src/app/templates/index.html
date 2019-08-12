@@ -11,13 +11,14 @@
         <p> <a href="{{ url_for('result2') }}">Result2</a></p>
         <body>
             <select onchange ="if (this.value)window.location.href=this.value">
-                <option value="/seqbox">seqbox<option>
+                <option value="/seqbox">Seqbox<option>
                 <option value="/sample">Sample<option>
                 <option value="/batch">Batch<option>
                 <option value="/location">Location<option>
                 <option value="/result1">Result1<option>
                 <option value="/result2">Result2<option>
                 <option value="/study">Study<option>
+                <option value="/sample_study">Sample_study<option>
                 </select>
     </div>
     {% endfor %}

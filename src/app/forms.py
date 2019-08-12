@@ -139,7 +139,19 @@ class Result2Form(FlaskForm):
         if result2 is not None:
             raise ValidationError('Please use a different id_result2.')
 
+class StudyForm(FlaskForm) :
+
+    id_study = StringField('id_study', validators=[DataRequired()])
+    date_study = StringField('date_study')
+    result_study = StringField('result_study')
+    submit = SubmitField('Validate')
     
+    def validate_id_study(self, id_study):
+
+        study = Study.query.filter_by(id_study=id_study.data).first()
+        if study is not None:
+            raise ValidationError('Please use a different id_study.')
+
 class Sample_studyForm(FlaskForm):
     
     id_study = StringField('id_study', validators=[DataRequired()])
