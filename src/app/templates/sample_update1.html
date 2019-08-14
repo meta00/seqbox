@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Sample Query</h1>
+    <table>
+        {% for sample in sample %}
+         
+            {{sample.id_sample}}
+            {{sample.num_seq }}
+            {{sample.date_time }}
+            {{sample.organism}}
+            {{sample.location}}
+            {{sample.batch}}
+            {{sample.path_r1}}
+            {{sample.path_r2}}
+            {{sample.result1}}
+            {{sample.result2}}
+
+        
+
+        <form method='PUT' action='./sample_update' style="display: inline">
+            <input type="hidden" value="{{sample.id_sample}}" name="id_sample">
+            <input type="text" value="{{sample.id_sample}}" name="newid_sample">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.num_seq}}" name="num_seq">
+            <input type="text" value="{{sample.num_seq}}" name="newnum_seq">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.date_time}}" name="date_time">
+            <input type="text" value="{{sample.date_time}}" name="newdate_time">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.organism}}" name="organism">
+            <input type="text" value="{{sample.organism}}" name="neworganism">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.location}}" name="location">
+            <input type="text" value="{{sample.location}}" name="newlocation">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.batch}}" name="batch">
+            <input type="text" value="{{sample.batch}}" name="newbatch">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.path_r1}}" name="path_r1">
+            <input type="text" value="{{sample.path_r1}}" name="newpath_r1">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.path_r2}}" name="path_r2">
+            <input type="text" value="{{sample.path_r2}}" name="newpath_r2">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.result1}}" name="result1">
+            <input type="text" value="{{sample.result1}}" name="newresult1">
+            <input type="submit" value="Update">
+
+            <input type="hidden" value="{{sample.result2}}" name="result2">
+            <input type="text" value="{{sample.result2}}" name="newresult2">
+            <input type="submit" value="Update">
+        </form>
+     
+    {% endfor %}
+     
+    </table>
+{% endblock %}

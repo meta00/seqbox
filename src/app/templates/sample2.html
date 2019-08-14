@@ -1,0 +1,75 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Sample{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Sample</h1>
+        {% if sample %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="15%"> id_sample </th>
+                  <th width="20%"> num_seq </th>
+                  <th width="20%">  date_time </th>
+                  <th width="20%">  batch </th>
+                  <th width="20%"> location </th>
+                  <th width="20%">  path_r1 </th>
+                  <th width="20%">  path_r2 </th>
+                  <th width="20%">  result1 </th>
+                  <th width="20%">  result2 </th>
+                  <th width="15%"> Edit </th>
+                  <th width="15%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for sample in sample %}
+                <tr>
+                  <td> {{ sample.id_sample }} </td>
+                  <td> {{  sample.num_seq }} </td>
+                  <td> {{sample.date_time }} </td>
+                  <td> {{sample.organism }} </td>
+                  <td> {{sample.location }} </td>
+                  <td> {{sample.batch  }} </td>
+                  <td> {{sample.path_r1 }} </td>
+                  <td> {{  sample.path_r2 }} </td>
+                  <td> {{sample.result1 }} </td>
+                  <td> {{sample.result2 }} </td>
+                  <td>
+                    <a href="{{ url_for(sample_edit) }}">
+                      <i class="fa fa-pencil"></i> Edit 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for(sample_delete) }}">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No sample have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for(add_sample) }}" class="btn btn-default btn-lg">
+            <i class="fa fa-plus"></i>
+            Add Sample
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

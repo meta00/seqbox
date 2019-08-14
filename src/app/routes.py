@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, Result2Form,StudyForm, Sample_studyForm  
+from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, Result2Form,StudyForm, Sample_studyForm
 from app.models import User, Sample, Result1,Result2, Batch,Location,Study,Sample_study
 
 @app.route('/')
@@ -22,6 +22,8 @@ def index():
         }
         
     ]
+
+
     return render_template('index.html', title='Home', posts=posts)
 
 
@@ -90,11 +92,13 @@ def register():
 
 @app.route('/sample', methods=['GET', 'POST'])
 def sample():
+
     """[summary]
     
     Returns:
         [type] -- [description]
     """
+   
     form = SampleForm()
     if form.validate_on_submit():
         sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
@@ -106,6 +110,60 @@ def sample():
         flash('Congratulations, you are now a registered sample!')
         return redirect(url_for('index'))
     return render_template('sample.html', title='validate', form=form)
+
+
+@app.route('/list_sample', methods= ['GET','POST'])
+def list_sample():
+    """
+    List all sample
+    """
+    form = SampleForm()
+    sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
+    sample = Sample.query.first()
+    return render_template('sample2.html',form=form,sample=sample,title="List Sample")
+
+@app.route('/add_sample',methods=['GET','POST'])
+def add_sample():
+    add_sample = True
+    form = SampleForm()
+    if form.validate_on_submit():
+        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
+            
+        db.session.add(sample)
+        db.session.commit()
+        flash('Congratulations, you are now add sample!')
+        return redirect(url_for(list_sample))
+    return render_template('sample2.html', action="Add",
+                           add_sample=add_sample, form=form,
+                           title="Add Sample")
+
+@app.route('/sample_edit', methods = ['GET', 'POST','PUT'])
+def sample_edit():  
+    
+    add_sample = False 
+    
+    form = SampleForm()
+
+    if form.validate_on_submit():
+        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
+        
+        db.session.commit()
+        flash('You have successfully edited Sample ')
+        return redirect(url_for('list_sample'))
+    return render_template('sample2.html',action="Edit",add_sample=add_sample, title='Edit Sample',form=form)
+
+
+@app.route("/sample_delete", methods=["GET","POST"])
+def sample_delete():
+    
+        form=SampleForm
+        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
+        db.session.delete(sample)
+        db.session.commit()
+        
+        return redirect(url_for('list_sample'))
+        return render_template('sample2.html',title="Delete Sample",form=form)
+
 
 @app.route('/batch', methods=['GET', 'POST'])
 def batch():

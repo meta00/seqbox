@@ -2,8 +2,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
-from app.models import User, Sample, Batch, Location, Result1, Result2, Study
-
+from app.models import User, Sample, Batch, Location, Result1, Result2, Study,Sample_study
 
 class LoginForm(FlaskForm):
    
@@ -45,7 +44,8 @@ class SampleForm(FlaskForm):
     result1 = StringField('result1')
     result2 = StringField('result2')
 
-    submit = SubmitField('Validate')
+    submit = SubmitField()
+    
     def validate_id_sample(self, id_sample):
         sample = Sample.query.filter_by(id_sample=id_sample.data).first()
         if sample is not None:
@@ -55,8 +55,11 @@ class SampleForm(FlaskForm):
         sample =Sample.query.filter_by(num_seq=num_seq.data).first()
         if sample is not None:
             raise ValidationError('Please use a different num_seq.')
+    
 
     
+    
+        
 class BatchForm(FlaskForm):
 
     id_batch = StringField('id_batch', validators=[DataRequired()])

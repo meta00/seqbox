@@ -1,0 +1,150 @@
+import os
+
+from flask import Flask
+from flask import render_template
+from flask import request
+from flask import redirect
+
+from flask_sqlalchemy import SQLAlchemy
+
+project_dir = os.path.dirname(os.path.abspath(__file__))
+database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+class Book(db.Model):
+    title = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
+
+    def __repr__(self):
+        return "<Title: {}>".format(self.title)
+
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    books = None
+    if request.form:
+        try:
+            book = Book(title=request.form.get("title")<<)
+            db.session.add(book)
+            db.session.commit()
+        except Exception as e:
+            print("Failed to add book")
+            print(e)
+    books = Book.query.all()
+    return render_template("home.html", books=books)
+
+sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.path_r2.data,result2=form.result2.data)
+@app.route("/update", methods=["POST"])
+def update():
+    try:
+        newtitle = request.form.get("newtitle")
+        oldtitle = request.form.get("oldtitle")
+        book = Book.query.filter_by(title=oldtitle).first()
+        book.title = newtitle
+        db.session.commit()
+    except Exception as e:
+        print("Couldn't update book title")
+        print(e)
+    return redirect("/")
+
+
+@app.route("/delete", methods=["POST"])
+def delete():
+    title = request.form.get("title")
+    book = Book.query.filter_by(title=title).first()
+    db.session.delete(book)
+    db.session.commit()
+    return redirect("/")
+
+
+if __name__ == "__main__":
+    db.create_all()
+    app.run(host='0.0.0.0', port=8087, debug=True)
+
+
+<html>
+  <body>
+    <h1>Add book</h1>
+    <form method="POST" action="/">
+      <input type="text" name="title">
+      <input type="submit" value="Add">
+    </form>
+
+    <h1>Books</h1>
+    <table>
+      {% for book in books %}
+        <tr>
+          <td>
+            {{book.title}}
+          </td>
+          <td>
+            <form method="POST" action="./update" style="display: inline">
+              <input type="hidden" value="{{book.title}}" name="oldtitle">
+              <input type="text" value="{{book.title}}" name="newtitle">
+              <input type="submit" value="Update">
+            </form>
+          </td>
+          <td>
+             <form method="POST" action="./delete" style="display: inline">
+              <input type="hidden" value="{{book.title}}" name="title">
+              <input type="submit" value="Delete">
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
+form = SampleForm()
+    if form.validate_on_submit():
+        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
+        
+        #save the model to the database
+        db.session.add(sample)
+        db.session.commit()
+        
+        flash('Congratulations, you are now a registered sample!')
+        return redirect(url_for('index'))
+    return render_template('sample.html', title='validate', form=form)
+
+
+
+<td>
+            <form method='POST' action="./sample_delete" style="display: inline">
+                <input type="hidden" value="{{sample.id_sample}}" name="id_sample">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.num_seq}}" name="num_seq">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.date_time}}" name="date_time">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.organism}}" name="organism">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.location}}" name="location">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.batch}}" name="batch">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.path_r1}}" name="path_r1">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.path_r2}}" name="path_r2">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.result1}}" name="result1">
+                <input type="submit" value="Delete">
+        
+                <input type="hidden" value="{{sample.result2}}" name="result2">
+                <input type="submit" value="Delete">
+            </form>
+        
+
+     </td>
