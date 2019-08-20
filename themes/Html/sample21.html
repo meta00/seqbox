@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+    
+    <h1>{{ ('list sample') }}</h1>
+
+    <td>
+
+        
+     <form method="GET" action="./list_sample" style="display: inline">
+        <select name="sample">
+        {% for sample in samples %}
+            option value={{sample.id_sample}}>{{sample.text}}</option>  
+            <input type="hidden" value="{{form.id_sample}}" name="id_sample">           
+            <input type="hidden" value="{{form.num_seq}}" name="num_seq">            
+            <input type="hidden" value="{{form.date_time}}" name="date_time">            
+            <input type="hidden" value="{{form.organism}}" name="organism">
+            <input type="hidden" value="{{form.location}}" name="location">           
+            <input type="hidden" value="{{form.batch}}" name="batch">            
+            <input type="hidden" value="{{form.path_r1}}" name="path_r1">            
+            <input type="hidden" value="{{form.path_r2}}" name="path_r2">            
+            <input type="hidden" value="{{form.result1}}" name="result1">            
+            <input type="hidden" value="{{form.result2}}" name="result2">
+        {% endfor %}
+        </select>
+        
+     </form>
+    </td>
+
+
+    <td>
+     <form method="POST" action="./add_sample">
+     {% for sample in samples %}
+     <input type="text" name="id_sample">
+     <input type="text" name="num_seq">
+     <input type="text" name="date_time">
+     <input type="text" name="organism">
+     <input type="text" name="location">
+     <input type="text" name="batch">
+     <input type="text" name="path_r1">
+     <input type="text" name="path_r2">
+     <input type="text" name="result1">
+     <input type="text" name="result2">
+     <input type="submit" value="Add">
+     {% endfor %} 
+     </form>
+    </td>
+
+ 
+
+<td>
+    <form method="POST" action="./sample_delete" style="display: inline">
+        {% for sample in samples %}
+        
+        <input type="hidden" value="{{sample.id_sample}}" name="id_sample">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.num_seq}}" name="num_seq">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.date_time}}" name="date_time">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.organism}}" name="organism">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.location}}" name="location">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.batch}}" name="batch">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.path_r1}}" name="path_r1">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.path_r2}}" name="path_r2">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.result1}}" name="result1">
+        <input type="submit" value="Delete">
+        
+        <input type="hidden" value="{{sample.result2}}" name="result2">
+        <input type="submit" value="Delete">
+        {% endfor %} 
+    </form>
+</td>   
+{% endblock %}        
+</html> 

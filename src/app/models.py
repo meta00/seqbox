@@ -103,10 +103,21 @@ class Sample(db.Model):
     results1 = db.relationship("Result1", backref=backref("sample",uselist=False))
     result2 = db.Column(db.Integer, db.ForeignKey("result2.id_result2"))
     results2 = db.relationship("Result2", backref=backref("sample",uselist=False))
-    
-    def __repr__(self):
-        return '<Sample {}>'.format(self.num_seq)
+    def __init__(self, id_sample,date_time,batch,location,organism,path_r1,path_r2,result1,result2):
+        self.id_sample=id_sample
+        self.num_seq=num_seq
+        self.organism=organism
+        self.batch=batch
+        self.date_time=date_time
+        self.location=location
+        self.path_r1=path_r1
+        self.path_r2=path_r2
+        self.result1=result1
+        self.result2=result2
 
+    
+    #def __repr__(self):
+    #    return "<Sample(id_sample='%s', num_seq='%s', organism='%s', batch='%s', date_time='%s', location='%s', path_r1='%s', path_r2='%s', result1='%s', result2='%s')>" % (self.id_sample,self.num_seq,self.organism,self.batch,self.date_time,self.location,self.path_r1,self.path_r2,self.result1,self.result2)
 
 class Batch(db.Model):
     """[Define model 'Batch' mapped to table 'batch']

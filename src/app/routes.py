@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, Result2Form,StudyForm, Sample_studyForm
+from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, Result2Form,StudyForm, Sample_studyForm,Sample2Form
 from app.models import User, Sample, Result1,Result2, Batch,Location,Study,Sample_study
 
 @app.route('/')
@@ -112,59 +112,85 @@ def sample():
     return render_template('sample.html', title='validate', form=form)
 
 
-@app.route('/list_sample', methods= ['GET','POST'])
+@app.route('/list_sample', methods = ['GET', 'POST'])
 def list_sample():
     """
     List all sample
     """
-    form = SampleForm()
-    sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
-    sample = Sample.query.first()
-    return render_template('sample2.html',form=form,sample=sample,title="List Sample")
+    samples=db.session.query(Sample).all()
+
+    db.session.commit()
+    for sample in samples:
+        print(sample)
+        print (sample.id_sample,sample.num_seq,sample.date_time,sample.batch,sample.organism,sample.location,sample.path_r1,sample.path_r2,sample.result1,sample.result2)
+
+    
+        flash('Sample selected successfully!')
+    
+    return render_template('sampleQuery.html', 
+    samples=samples,
+    title='list sample')
+     
 
 @app.route('/add_sample',methods=['GET','POST'])
 def add_sample():
+    
     add_sample = True
-    form = SampleForm()
+    form = Sample2Form()
     if form.validate_on_submit():
         sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
-            
-        db.session.add(sample)
-        db.session.commit()
-        flash('Congratulations, you are now add sample!')
-        return redirect(url_for(list_sample))
-    return render_template('sample2.html', action="Add",
+        try:
+            db.session.add(sample)
+            db.session.commit()
+            flash('Congratulations, you are now add sample!')
+        except:
+            flash('Error: already exists')
+        return redirect(url_for('list_sample'))
+    return render_template('sampleQuery.html', action="Add",
                            add_sample=add_sample, form=form,
                            title="Add Sample")
 
-@app.route('/sample_edit', methods = ['GET', 'POST','PUT'])
+@app.route('/sample_edit', methods = ['GET', 'POST'])
 def sample_edit():  
-    
-    add_sample = False 
-    
-    form = SampleForm()
+    add_sample = False
+    #sample = Sample.query.get_or_404(id_sample)
+    form = Sample2Form(obj=sample)
 
     if form.validate_on_submit():
-        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
         
+        sample.id_sample=form.id_sample.data
+        sample.num_seq=form.num_seq.data
+        sample.date_time=form.date_time.data
+        sample.organism=form.organism.data
+        sample.location=form.location.data
+        sample.batch=form.batch.data
+        sample.path_r1=form.path_r1.data 
+        sample.path_r2=form.path_r2.data
+        sample.result1=form.result1.data
+        sample.result2=form.result2.data
+        db.session.query(sample).all()
         db.session.commit()
         flash('You have successfully edited Sample ')
         return redirect(url_for('list_sample'))
-    return render_template('sample2.html',action="Edit",add_sample=add_sample, title='Edit Sample',form=form)
+   
+    return render_template('sampleQuery.html',action="Edit",sample=sample,add_sample=add_sample, title='Edit Sample',form=form)
 
-
-@app.route("/sample_delete", methods=["GET","POST"])
+@app.route('/sample_delete' ,methods=['GET', 'POST'])
 def sample_delete():
     
-        form=SampleForm
-        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
-        db.session.delete(sample)
-        db.session.commit()
+    if request.method == 'POST':
+        sample = request.form['sample']
         
-        return redirect(url_for('list_sample'))
-        return render_template('sample2.html',title="Delete Sample",form=form)
+        Sample_study.query.filter_by(id_sample=sample).delete()
+        Sample.query.filter_by(id_sample=sample).delete()    
+        db.session.commit()
+        flash('Congratulations, you are now delete sample!')
+       
+    return render_template('sampleQuery.html')
 
 
+
+    
 @app.route('/batch', methods=['GET', 'POST'])
 def batch():
     form = BatchForm()

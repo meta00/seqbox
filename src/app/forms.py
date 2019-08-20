@@ -1,6 +1,7 @@
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User, Sample, Batch, Location, Result1, Result2, Study,Sample_study
 
@@ -44,7 +45,7 @@ class SampleForm(FlaskForm):
     result1 = StringField('result1')
     result2 = StringField('result2')
 
-    submit = SubmitField()
+    submit = SubmitField('Validate')
     
     def validate_id_sample(self, id_sample):
         sample = Sample.query.filter_by(id_sample=id_sample.data).first()
@@ -55,7 +56,26 @@ class SampleForm(FlaskForm):
         sample =Sample.query.filter_by(num_seq=num_seq.data).first()
         if sample is not None:
             raise ValidationError('Please use a different num_seq.')
+
+class Sample2Form(FlaskForm):
     
+    id_sample = QuerySelectField('id_sample',validators=[DataRequired()])
+    num_seq = QuerySelectField('num_seq',validators=[DataRequired()])
+    date_time = QuerySelectField('date_time',validators=[DataRequired()])
+    organism = QuerySelectField('organism',validators=[DataRequired()])
+    path_r1 = QuerySelectField('path_r1',validators=[DataRequired()])
+    path_r2 = QuerySelectField('path_r2',validators=[DataRequired()])
+    batch =  QuerySelectField('batch',validators=[DataRequired()])
+    location = QuerySelectField('location',validators=[DataRequired()])
+    result1 = QuerySelectField('result1',validators=[DataRequired()])
+    result2 = QuerySelectField('result2',validators=[DataRequired()])
+    
+    #submit = SubmitField('Submit')
+
+    
+    #def __init__(self,id_sample=id_sample, *args, **kwargs):
+    #    super(Sample2Form, self).__init__(*args, **kwargs)
+    #    self.id_sample = id_sample
 
     
     
