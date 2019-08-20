@@ -57,20 +57,20 @@ class SampleForm(FlaskForm):
         if sample is not None:
             raise ValidationError('Please use a different num_seq.')
 
-class Sample2Form(FlaskForm):
+# class Sample2Form(FlaskForm):
     
-    id_sample = QuerySelectField('id_sample',validators=[DataRequired()])
-    num_seq = QuerySelectField('num_seq',validators=[DataRequired()])
-    date_time = QuerySelectField('date_time',validators=[DataRequired()])
-    organism = QuerySelectField('organism',validators=[DataRequired()])
-    path_r1 = QuerySelectField('path_r1',validators=[DataRequired()])
-    path_r2 = QuerySelectField('path_r2',validators=[DataRequired()])
-    batch =  QuerySelectField('batch',validators=[DataRequired()])
-    location = QuerySelectField('location',validators=[DataRequired()])
-    result1 = QuerySelectField('result1',validators=[DataRequired()])
-    result2 = QuerySelectField('result2',validators=[DataRequired()])
+#     id_sample = QuerySelectField('id_sample',validators=[DataRequired()])
+#     num_seq = QuerySelectField('num_seq',validators=[DataRequired()])
+#     date_time = QuerySelectField('date_time',validators=[DataRequired()])
+#     organism = QuerySelectField('organism',validators=[DataRequired()])
+#     path_r1 = QuerySelectField('path_r1',validators=[DataRequired()])
+#     path_r2 = QuerySelectField('path_r2',validators=[DataRequired()])
+#     batch =  QuerySelectField('batch',validators=[DataRequired()])
+#     location = QuerySelectField('location',validators=[DataRequired()])
+#     result1 = QuerySelectField('result1',validators=[DataRequired()])
+#     result2 = QuerySelectField('result2',validators=[DataRequired()])
     
-    #submit = SubmitField('Submit')
+#     #submit = SubmitField('Submit')
 
     
     #def __init__(self,id_sample=id_sample, *args, **kwargs):

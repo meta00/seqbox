@@ -6,7 +6,7 @@ from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, Locati
 from app.models import User, Sample, Result1,Result2, Batch,Location,Study,Sample_study
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index',methods=['GET', 'POST'])
 @login_required
 def index():
     
@@ -132,57 +132,62 @@ def list_sample():
     title='list sample')
      
 
-@app.route('/add_sample',methods=['GET','POST'])
-def add_sample():
+# @app.route('/add_sample',methods=['GET','POST'])
+# def add_sample():
     
-    add_sample = True
-    form = Sample2Form()
-    if form.validate_on_submit():
-        sample = Sample(id_sample=form.id_sample.data, num_seq=form.num_seq.data, date_time=form.date_time.data, organism=form.organism.data, location=form.location.data, batch=form.batch.data, path_r1=form.path_r1.data, path_r2=form.path_r2,result1=form.result1.data,result2=form.result2.data)
-        try:
-            db.session.add(sample)
-            db.session.commit()
-            flash('Congratulations, you are now add sample!')
-        except:
-            flash('Error: already exists')
-        return redirect(url_for('list_sample'))
-    return render_template('sampleQuery.html', action="Add",
-                           add_sample=add_sample, form=form,
-                           title="Add Sample")
+#     samples = None
+#     if request.form:
+#         try:
+#             sample = Sample(id_sample=request.form.get("id_sample"), num_seq=request.form.get("num_seq"),
+#              date_time=request.form.get("date_time"), organism=request.form.get("organism"),
+#               location=request.form.get("location"),batch=request.form.get("batch"), 
+#               path_r1=request.form.get("path_r1"), path_r2=request.form.get("path_r2"),
+#               result1=request.form.get("result1"),result2=request.form.get("result2"))
+#             db.session.add(sample)
+#             db.session.commit()
+#         except Exception as e:
+#             print("Failed to add sample")
+#             print(e)
+#     samples = Sample.query.all()
+#     return render_template("sa.html", samples=samples)
 
-@app.route('/sample_edit', methods = ['GET', 'POST'])
-def sample_edit():  
-    add_sample = False
-    #sample = Sample.query.get_or_404(id_sample)
-    form = Sample2Form(obj=sample)
-
-    if form.validate_on_submit():
-        
-        sample.id_sample=form.id_sample.data
-        sample.num_seq=form.num_seq.data
-        sample.date_time=form.date_time.data
-        sample.organism=form.organism.data
-        sample.location=form.location.data
-        sample.batch=form.batch.data
-        sample.path_r1=form.path_r1.data 
-        sample.path_r2=form.path_r2.data
-        sample.result1=form.result1.data
-        sample.result2=form.result2.data
-        db.session.query(sample).all()
+@app.route('/edit/<id>', methods = ['GET', 'POST'])
+def edit(id):  
+    # add_sample = False
+    # #sample = Sample.query.get_or_404(id_sample)
+    # form = Sample2Form(obj=sample)
+    if request.method == 'GET': 
+        kwargs = {'id_sample':id}
+        sample=Sample.query.filter_by(**kwargs).first()
         db.session.commit()
-        flash('You have successfully edited Sample ')
-        return redirect(url_for('list_sample'))
+
+    if request.method == 'POST':
+        id_sample = request.form.get('id_sample')
+        num_seq = request.form.get('num_seq')
+        date_time = request.form.get('date_time')
+        sample=Sample.query.filter_by(id_sample=id_sample).update({"num_seq": num_seq,"date_time":date_time})
+        #db.session.add(sample)
+        db.session.commit()
+        flash('Sample modifited successfully!')
+        return render_template('index.html')
+    return render_template('test.html',
+                           sample=sample)
+    
+    
+
+    
    
-    return render_template('sampleQuery.html',action="Edit",sample=sample,add_sample=add_sample, title='Edit Sample',form=form)
+   
+    #return render_template('test.html',id_sample=id_sample)
 
 @app.route('/sample_delete' ,methods=['GET', 'POST'])
 def sample_delete():
     
     if request.method == 'POST':
-        sample = request.form['sample']
+        id_sample = request.form.get('sample')
         
-        Sample_study.query.filter_by(id_sample=sample).delete()
-        Sample.query.filter_by(id_sample=sample).delete()    
+        Sample_study.query.filter_by(id_sample=id_sample).delete()
+        Sample.query.filter_by(id_sample=id_sample).delete()    
         db.session.commit()
         flash('Congratulations, you are now delete sample!')
        

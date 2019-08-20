@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<body>  
+    <h1>{{ ('List sample') }}</h1>
+        
+    <td>
+        <table>
+        {% for sample in samples %}
+         <tr>
+            <th>id_sample</th>
+            <th>num_seq</th>
+            <th>date_time</th>
+            <th>organism</th>
+            <th>location</th>
+            <th>batch</th>
+            <th>path_r1</th>
+            <th>path_r2</th>
+            <th>result1</th>
+            <th>result2</th>
+         </tr> 
+         <tr>
+            <td>{{sample.id_sample}}</td>
+            <td>{{sample.num_seq }}</td>
+            <td>{{sample.date_time }}</td>
+            <td>{{sample.organism}}</td>   
+            <td>{{sample.location}}</td>
+            <td>{{sample.batch}}</td>
+            <td>{{sample.path_r1}}</td>    
+            <td>{{sample.path_r2}}</td>   
+            <td>{{sample.result1}}</td>    
+            <td>{{sample.result2}}</td>    
+         </tr>
+         
+              <form method="POST" action="./sample_edit" style="display: inline">
+                
+                <input type="text" value="{{sample.id_sample}}" name="newid_sample">
+                
+
+                
+                <input type="text" value="{{sample.num_seq}}" name="newnum_seq">
+               
+
+                
+                <input type="text" value="{{sample.date_time}}" name="newdate_time">
+                
+
+                
+                <input type="text" value="{{sample.organism}}" name="neworganism">
+               
+
+                
+                <input type="text" value="{{sample.location}}" name="newlocation">
+                
+''
+                
+                <input type="text" value="{{sample.batch}}" name="newbatch">
+                
+
+                
+                <input type="text" value="{{sample.path_r1}}" name="newpath_r1">
+                
+
+                
+                <input type="text" value="{{sample.path_r2}}" name="newpath_r2">
+                
+
+                
+                <input type="text" value="{{sample.result1}}" name="newresult1">
+               
+
+                
+                <input type="text" value="{{sample.result2}}" name="newresult2">
+                <input type="submit" value="Update">
+                
+            </form>
+        </td>
+        <td>
+            <form method="POST" action="./sample_delete" style="display: inline">
+             <input type="hidden" value="{{sample.id_sample}}" name="id_sample">
+             <input type="submit" value="Delete">
+           </form>
+         </td>
+       </tr>
+     {% endfor %}
+    </table>
+</body> 
+{% endblock %}              
+</html> 
