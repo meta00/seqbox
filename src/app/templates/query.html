@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+    
+    <h1>{{ ('list sample') }}</h1>
+
+    <form method="GET" action="./list_sample" style="display: inline">
+    
+        <table> 
+            <tr>
+                <th>Sample ID</th>
+                <th>Number of sequences</th>
+                <th>Batch</th>
+                <th>Organism</th>
+                <th></th>
+                <th></th>
+            </tr>
+        {% for sample in samples %}
+                <tr>
+                    <th>{{sample.id_sample}}</th>
+                    <th>{{sample.num_seq}}</th>
+                    <th>{{sample.batch}</th>
+                    <th>{{sample.organism}}</th>
+                    <th>
+<<<<<<< HEAD
+                        
+=======
+                        <form method="POST" action="{{ url_for('sample_delete', id=sample.id_sample) }}" style="display: inline">
+>>>>>>> a0dad76f54d195f7749bdf0ad5233d7fc7552b5a
+                            <input type="submit" value="Delete">
+                        </form>
+                    </th>
+                    <th>
+<<<<<<< HEAD
+                        <form method="POST" action="{{ url_for('edit', id=sample.id_sample) }} style="display: inline">
+=======
+                        <form method="POST" action="{{ url_for('edit', id=sample.id_sample) }}" style="display: inline">
+>>>>>>> a0dad76f54d195f7749bdf0ad5233d7fc7552b5a
+                            <input type="submit" value="Modify">
+                        </form>
+                    </th>
+                </tr>
+        {% endfor %}
+        </table>
+    </form>
+{% endblock %}        
+</html> 
