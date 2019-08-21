@@ -118,7 +118,6 @@ def list_sample():
     List all sample
     """
     samples=db.session.query(Sample).all()
-
     db.session.commit()
     for sample in samples:
         print(sample)
@@ -127,9 +126,7 @@ def list_sample():
     # return render_template('sampleQuery.html', 
     # samples=samples,
     # title='list sample')
-    return render_template('query.html', 
-    samples=samples,
-    title='list sample')
+    return render_template('query.html', samples=samples, title='list sample')
      
 
 
