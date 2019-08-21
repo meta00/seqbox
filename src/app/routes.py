@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, Result2Form,StudyForm, Sample_studyForm,Sample2Form
+from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, Result2Form,StudyForm, Sample_studyForm
 from app.models import User, Sample, Result1,Result2, Batch,Location,Study,Sample_study
 
 @app.route('/')
@@ -132,27 +132,134 @@ def list_sample():
     title='list sample')
      
 
-# @app.route('/add_sample',methods=['GET','POST'])
-# def add_sample():
-    
-#     samples = None
-#     if request.form:
-#         try:
-#             sample = Sample(id_sample=request.form.get("id_sample"), num_seq=request.form.get("num_seq"),
-#              date_time=request.form.get("date_time"), organism=request.form.get("organism"),
-#               location=request.form.get("location"),batch=request.form.get("batch"), 
-#               path_r1=request.form.get("path_r1"), path_r2=request.form.get("path_r2"),
-#               result1=request.form.get("result1"),result2=request.form.get("result2"))
-#             db.session.add(sample)
-#             db.session.commit()
-#         except Exception as e:
-#             print("Failed to add sample")
-#             print(e)
-#     samples = Sample.query.all()
-#     return render_template("sa.html", samples=samples)
+
 
 @app.route('/edit/<id>', methods = ['GET', 'POST'])
 def edit(id):  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
  
     if request.method == 'GET': 
         kwargs = {'id_sample':id}
@@ -177,8 +284,8 @@ def sample_delete(id):
         Sample_study.query.filter_by(id_sample=id).delete()
         Sample.query.filter_by(id_sample=id).delete()    
         db.session.commit()
-      flash("Sample %s deleted", %id)
-return render_template('sampleQuery.html')
+        #flash("Sample %s deleted", %id)
+    return render_template('sampleQuery.html')
 
 @app.route('/batch', methods=['GET', 'POST'])
 def batch():

@@ -24,12 +24,12 @@
                     <th>{{sample.batch}</th>
                     <th>{{sample.organism}}</th>
                     <th>
-                        <form method="POST" action={{ url_for('sample_delete', id=sample.id_sample) }} style="display: inline">
+                        <form method="POST" action="{{ url_for('sample_delete', id=sample.id_sample) }} style="display: inline">
                             <input type="submit" value="Delete">
                         </form>
                     </th>
                     <th>
-                        <form method="POST" action={{ url_for('edit', id=sample.id_sample) }} style="display: inline">
+                        <form method="POST" action="{{ url_for('edit', id=sample.id_sample) }} style="display: inline">
                             <input type="submit" value="Modify">
                         </form>
                     </th>
