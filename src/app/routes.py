@@ -117,16 +117,22 @@ def list_sample():
     """
     List all sample
     """
-    samples=db.session.query(Sample).all()
-    db.session.commit()
-    for sample in samples:
-        print(sample)
-        print (sample.id_sample,sample.num_seq,sample.date_time,sample.batch,sample.organism,sample.location,sample.path_r1,sample.path_r2,sample.result1,sample.result2)
-        flash('Sample selected successfully!')  
-    # return render_template('sampleQuery.html', 
-    # samples=samples,
-    # title='list sample')
-    return render_template('query.html', samples=samples, title='list sample')
+    if request.method == 'GET':
+        samples=db.session.query(Sample).all()
+        db.session.commit()
+        return render_template('query.html', samples=samples, title='list sample')
+    # for sample in samples:
+    #     print(sample)
+    #     print (sample.id_sample,sample.num_seq,sample.date_time,sample.batch,sample.organism,sample.location,sample.path_r1,sample.path_r2,sample.result1,sample.result2)
+    #     flash('Sample selected successfully!')
+    if request.method == 'POST':
+        try: 
+            id = request.form['modify']
+            return redirect(url_for('edit', id = id))
+        except:
+            id = request.form['delete']
+            return redirect(url_for('sample_delete',id = id))
+    
      
 
 
@@ -147,18 +153,18 @@ def edit(id):
         db.session.commit()
         flash('Sample modifited successfully!')
         return render_template('index.html')
-    return render_template('test.html',
+    return render_template('edit.html',
                            sample=sample)
 
 @app.route('/sample_delete/<id>', methods=['GET', 'POST'])
 def sample_delete(id):
 
-    if request.method == 'GET':      
-        Sample_study.query.filter_by(id_sample=id).delete()
-        Sample.query.filter_by(id_sample=id).delete()    
-        db.session.commit()
-        #flash("Sample %s deleted", %id)
-    return render_template('sampleQuery.html')
+     
+    Sample_study.query.filter_by(id_sample=id).delete()
+    Sample.query.filter_by(id_sample=id).delete()    
+    db.session.commit()
+    flash('Sample is deleted')
+    return render_template('delete.html')
 
 @app.route('/batch', methods=['GET', 'POST'])
 def batch():

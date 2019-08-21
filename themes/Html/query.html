@@ -7,6 +7,7 @@
     
     <h1>{{ ('list sample') }}</h1>
 
+    <form method="GET" action="./list_sample" style="display: inline">
         <table> 
             <tr>
                 <th>Sample ID</th>
@@ -18,24 +19,24 @@
             </tr>
         {% for sample in samples %}
                 <tr>
-                <form method="GET" action="./list_sample" style="display: inline">
                     <th>{{sample.id_sample}}</th>
                     <th>{{sample.num_seq}}</th>
                     <th>{{sample.batch}}</th>
                     <th>{{sample.organism}}</th>
-                </form>
-                <form method="POST" action="./list_sample" style="display: inline">    
+                <form method="POST" style="display: inline">    
                     <th>
                     
-                            <button type="submit" name="modify" value="{{  sample.id_sample  }}">Modify</button>                        
+                            <input formaction="{{ url_for('edit', id=sample.id_sample)}}" type="submit" value="Modify">
                     </th>
                     <th>
-                            <button type="submit" name="delete" value="{{  sample.id_sample  }}">Delete</button>                        
+                            <input formaction="{{ url_for('sample_delete', id=sample.id_sample)}}" type="submit" value="Delete">
+                        
                            
                     </th>
                 </form>
                 </tr>
         {% endfor %}
         </table>
+    </form>
 {% endblock %}        
 </html> 
