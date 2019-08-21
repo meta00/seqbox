@@ -5,13 +5,20 @@
 {% block content %}
 <body>  
 <form method="POST" action="{{ url_for('index') }}" style="display: inline">
-
-    <input type="text" value="{{sample.id_sample}}" name="id_sample"><br>
-    <input type="text" value="{{sample.num_seq}}" name="num_seq"><br>
-    <input type="text" value="{{sample.date_time}}" name="date_time"><br>
-    <input type="submit" value="Update">
-    
-    
+    <table>
+        <tr>
+            <th>"Sample ID:"</th>
+            <th><input type="text" value="{{sample.id_sample}}" name="id_sample" disabled></th>
+        </tr>
+        <tr>
+                <th>"Number of sequences:"</th>
+                <th><input type="text" value="{{sample.num_seq}}" name="num_seq"></th>
+        </tr>
+        <tr>
+                <th>"Date"</th>
+                <th><input type="text" value="{{sample.date_time}}" name="date_time"></th>
+        </tr>
+    </table>  
 </form>     
 </body>
 {% endblock %}   
