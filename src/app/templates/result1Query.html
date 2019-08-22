@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+
+    
+    <h1>{{ ('List result1') }}</h1>
+
+        <table> 
+            <tr>
+                <th>Result1 ID</th>
+                <th>QC</th>
+                <th>QL</th>
+                <th>Description</th>
+                <th>Snapper of variants</th>
+                <th>Snapper of ignored</th>
+                <th>Number of heterozygous</th>
+                <th>Mean of depth</th>
+                <th>Coverage</th>
+            </tr>
+        {% for result1 in result1s %}
+                <tr>
+                <form method="GET" action="./list_result1" style="display: inline">
+                    <th>{{result1.id_result1}}</th>
+                    <th>{{result1.qc}}</th>
+                    <th>{{result1.ql}}</th>
+                    <th>{{result1.description}}</th>
+                    <th>{{result1.snapper_variants}}</th>
+                    <th>{{result1.snapper_ignored}}</th>
+                    <th>{{result1.num_heterozygous}}</th>
+                    <th>{{result1.mean_depth}}</th>
+                    <th>{{result1.coverage}}</th>
+                </form>
+                <form method="POST" action="./list_result1" style="display: inline">    
+                    <th>
+                        <button type="submit" name="modify" value="{{  result1.id_result1 }}">Modify</button>                        
+                    </th>
+                    <th>
+     
+                        <button type="submit" name="delete" value="{{  result1.id_result1  }}">Delete</button>                               
+                    </th>
+                </form>
+                </tr>
+        {% endfor %}
+        </table>
+{% endblock %}        
+</html> 

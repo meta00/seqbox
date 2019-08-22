@@ -133,9 +133,6 @@ def list_sample():
             id = request.form['delete']
             return redirect(url_for('sample_delete',id = id))
     
-     
-
-
 
 @app.route('/edit/<id>', methods = ['GET', 'POST'])
 def edit(id):  
@@ -149,22 +146,28 @@ def edit(id):
         id_sample = request.form.get('id_sample')
         num_seq = request.form.get('num_seq')
         date_time = request.form.get('date_time')
-        sample=Sample.query.filter_by(id_sample=id_sample).update({"num_seq": num_seq,"date_time":date_time})
+        batch = request.form.get('batch')
+        organism = request.form.get('organism')
+        location= request.form.get('location')
+        path_r1 = request.form.get('path_r1')
+        path_r2= request.form.get('path_r2')
+        result1 = request.form.get('result1')
+        result2 = request.form.get('result2')
+        sample=Sample.query.filter_by(id_sample=id_sample).update({"num_seq": num_seq,"date_time":date_time,"batch": batch,"organism": organism,"location": location,"path_r1":path_r1,"path_r2": path_r2,"result1": result1,"result2": result2})
         db.session.commit()
         flash('Sample modifited successfully!')
         return render_template('index.html')
-    return render_template('edit.html',
+    return render_template('sample_edit.html',
                            sample=sample)
 
 @app.route('/sample_delete/<id>', methods=['GET', 'POST'])
 def sample_delete(id):
 
-     
     Sample_study.query.filter_by(id_sample=id).delete()
     Sample.query.filter_by(id_sample=id).delete()    
     db.session.commit()
     flash('Sample is deleted')
-    return render_template('delete.html')
+    return render_template('sample_delete.html')
 
 @app.route('/batch', methods=['GET', 'POST'])
 def batch():
@@ -180,6 +183,55 @@ def batch():
         return redirect(url_for('index'))
     return render_template('batch.html', title='validate', form=form)
 
+@app.route('/list_batch', methods = ['GET', 'POST'])
+def list_batch():
+    """
+    List all batch
+    """
+    if request.method == 'GET':
+        batchs=db.session.query(Batch).all()
+        db.session.commit()
+        return render_template('batchQuery.html', batchs=batchs, title='list batch')
+    # for batch in batchs:
+    #     print(batch)
+    #     print (batch.id_batch,batch.name_batch,batch.date_batch,batch.instrument,batch.primer)
+    #     flash('Batch selected successfully!')
+    if request.method == 'POST':
+        try: 
+            id = request.form['modify']
+            return redirect(url_for('batch_edit', id = id))
+        except:
+            id = request.form['delete']
+            return redirect(url_for('batch_delete',id = id))
+
+@app.route('/batch_edit/<id>', methods = ['GET', 'POST'])
+def batch_edit(id):  
+
+    if request.method == 'GET': 
+        kwargs = {'id_batch':id}
+        batch=Batch.query.filter_by(**kwargs).first()
+        db.session.commit()
+
+    if request.method == 'POST':
+        id_batch= request.form.get('id_batch')
+        name_batch = request.form.get('name_batch')
+        date_batch = request.form.get('date_batch')
+        instrument = request.form.get('instrument')
+        primer = request.form.get('primer')
+        batch=Batch.query.filter_by(id_batch=id_batch).update({"name_batch": name_batch,"date_batch": date_batch,"instrument": instrument,"primer": primer})
+        db.session.commit()
+        flash('Batch modifited successfully!')
+        return render_template('index.html')
+    return render_template('batch_edit.html',
+                           batch=batch)
+@app.route('/batch_delete/<id>', methods=['GET', 'POST'])
+def batch_delete(id):
+
+    Batch.query.filter_by(id_batch=id).delete()    
+    db.session.commit()
+    flash('Batch is deleted')
+    return render_template('batch_delete.html') 
+
 @app.route('/location', methods=['GET', 'POST'])
 def location():
     form = LocationForm()
@@ -194,6 +246,53 @@ def location():
         return redirect(url_for('index'))
     return render_template('location.html', title='validate', form=form)
 
+@app.route('/list_location', methods = ['GET', 'POST'])
+def list_location():
+    """
+    List all location
+    """
+    if request.method == 'GET':
+        locations=db.session.query(Location).all()
+        db.session.commit()
+        return render_template('locationQuery.html', locations=locations, title='list location')
+
+    if request.method == 'POST':
+        try: 
+            id = request.form['modify']
+            return redirect(url_for('location_edit', id = id))
+        except:
+            id = request.form['delete']
+            return redirect(url_for('location_delete',id = id))
+
+@app.route('/location_edit/<id>', methods = ['GET', 'POST'])
+def location_edit(id):  
+
+    if request.method == 'GET': 
+        kwargs = {'id_location':id}
+        location=Location.query.filter_by(**kwargs).first()
+        db.session.commit()
+
+    if request.method == 'POST':
+        id_location = request.form.get('id_location')
+        continent = request.form.get('continent')
+        country = request.form.get('country')
+        province = request.form.get('province')
+        city = request.form.get('city')
+        location=Location.query.filter_by(id_location=id_location).update({"continent":continent, "country":country, "province":province, "city":city})
+        db.session.commit()
+        flash('Location modifited successfully!')
+        return render_template('index.html')
+    return render_template('location_edit.html',
+                           location=location)
+
+@app.route('/location_delete/<id>', methods=['GET', 'POST'])
+def location_delete(id):
+
+    Location.query.filter_by(id_location=id).delete()    
+    db.session.commit()
+    flash('Location is deleted')
+    return render_template('location_delete.html')
+
 @app.route('/result1', methods=['GET', 'POST'])
 def result1():
     form = Result1Form()
@@ -207,6 +306,58 @@ def result1():
         flash('Congratulations, you are now a registered result1!')
         return redirect(url_for('index'))
     return render_template('result1.html', title='validate', form=form)
+@app.route('/list_result1', methods = ['GET', 'POST'])
+def list_result1():
+    """
+    List all result1
+    """
+    if request.method == 'GET':
+        result1s=db.session.query(Result1).all()
+        db.session.commit()
+        return render_template('result1Query.html', result1s=result1s, title='list result1')
+
+    if request.method == 'POST':
+        try: 
+            id = request.form['modify']
+            return redirect(url_for('result1_edit', id = id))
+        except:
+            id = request.form['delete']
+            return redirect(url_for('result1_delete',id = id))
+    
+
+@app.route('/result1_edit/<id>', methods = ['GET', 'POST'])
+def result1_edit(id):  
+
+    if request.method == 'GET': 
+        kwargs = {'id_result1':id}
+        result1=Result1.query.filter_by(**kwargs).first()
+        db.session.commit()
+
+    if request.method == 'POST':
+        id_result1 = request.form.get('id_result1')
+        qc = request.form.get('qc')
+        ql = request.form.get('ql')
+        description = request.form.get('description')
+        snapper_variants = request.form.get('snapper_variants')
+        snapper_ignored = request.form.get('snapper_ignored')
+        num_heterozygous = request.form.get('num_heterozygous')
+        mean_depth = request.form.get('mean_depth')
+        coverage = request.form.get('coverage')
+        
+        result1=Result1.query.filter_by(id_result1=id_result1).update({"qc": qc,"ql": ql,"description": description,"snapper_variants": snapper_variants,"snapper_ignored": snapper_ignored,"num_heterozygous": num_heterozygous,"mean_depth": mean_depth,"coverage": coverage})
+        db.session.commit()
+        flash('Result1 modifited successfully!')
+        return render_template('index.html')
+    return render_template('result1_edit.html',
+                           result1=result1)
+
+@app.route('/result1_delete/<id>', methods=['GET', 'POST'])
+def result1_delete(id):
+
+    Result1.query.filter_by(id_result1=id).delete()    
+    db.session.commit()
+    flash('Result1 is deleted')
+    return render_template('result1_delete.html')
 
 @app.route('/result2', methods=['GET', 'POST'])
 def result2():
@@ -222,6 +373,66 @@ def result2():
         return redirect(url_for('index'))
     return render_template('result2.html', title='validate', form=form)
 
+# @app.route('/list_result2', methods = ['GET', 'POST'])
+# def list_result2():
+#     """
+#     List all result2
+#     """
+#     if request.method == 'GET':
+#         result2s=db.session.query(Result2).all()
+#         db.session.commit()
+#         return render_template('result2Query.html', result2s=result2s, title='list result2')
+
+#     if request.method == 'POST':
+#         try: 
+#             id = request.form['modify']
+#             return redirect(url_for('result2_edit', id = id))
+#         except:
+#             id = request.form['delete']
+#             return redirect(url_for('result2_delete',id = id))
+    
+
+# @app.route('/result2_edit/<id>', methods = ['GET', 'POST'])
+# def result2_edit(id):  
+
+#     if request.method == 'GET': 
+#         kwargs = {'id_result2':id}
+#         result2=Result2.query.filter_by(**kwargs).first()
+#         db.session.commit()
+
+#     if request.method == 'POST':
+#         id_result2 = request.form.get('id_result2')
+#         mykrobe_version= request.form.get('mykrobe_version')
+#         phylo_grp = request.form.get('phylo_grp')
+#         phylo_grp_covg= request.form.get('phylo_grp_covg')
+#         phylo_grp_depth = request.form.get('phylo_grp_depth')
+#         species= request.form.get('species')
+#         species_covg = request.form.get('species_covg')
+#         species_depth = request.form.get('species_depth')
+#         lineage = request.form.get('lineage')
+#         lineage_covg = request.form.get('lineage_covg')
+#         lineage_depth = request.form.get('lineage_depth')
+#         susceptibility = request.form.get('susceptibility')
+#         variants = request.form.get('variants')
+#         genes = request.form.get('genes')
+#         drug = request.form.get('drug')
+          
+        
+#         result2=Result2.query.filter_by(id_result2=id_result2).update({})
+#         db.session.commit()
+#         flash('Result2 modifited successfully!')
+#         return render_template('index.html')
+#     return render_template('result2_edit.html',
+#                            result2=result2)
+
+# @app.route('/result2_delete/<id>', methods=['GET', 'POST'])
+# def result2_delete(id):
+
+#     Result2.query.filter_by(id_result2=id).delete()    
+#     db.session.commit()
+#     flash('Result2 is deleted')
+#     return render_template('result2_delete.html')
+
 @app.route('/study', methods=['GET', 'POST'])
 def study():
     form = StudyForm()
@@ -235,7 +446,52 @@ def study():
         flash('Congratulations, you are now a registered study!')
         return redirect(url_for('index'))
     return render_template('study.html', title='validate', form=form)
+# @app.route('/list_study', methods = ['GET', 'POST'])
+# def list_study():
+#     """
+#     List all study
+#     """
+#     if request.method == 'GET':
+#         studies=db.session.query(study).all()
+#         db.session.commit()
+#         return render_template('studyQuery.html', studies=studies, title='list study')
 
+#     if request.method == 'POST':
+#         try: 
+#             id = request.form['modify']
+#             return redirect(url_for('study_edit', id = id))
+#         except:
+#             id = request.form['delete']
+#             return redirect(url_for('study_delete',id = id))
+    
+
+# @app.route('/study_edit/<id>', methods = ['GET', 'POST'])
+# def study_edit(id):  
+
+#     if request.method == 'GET': 
+#         kwargs = {'id_study':id}
+#         study=Study.query.filter_by(**kwargs).first()
+#         db.session.commit()
+
+#     if request.method == 'POST':
+#         id_study = request.form.get('id_study')
+#         date_study= request.form.get('date_study')
+#         result_study = request.form.get('result_study')
+#        
+#         study=Study.query.filter_by(id_study=id_study).update({})
+#         db.session.commit()
+#         flash('Study modifited successfully!')
+#         return render_template('index.html')
+#     return render_template('study_edit.html',
+#                            study=study)
+
+# @app.route('/study_delete/<id>', methods=['GET', 'POST'])
+# def study_delete(id):
+
+#     Study.query.filter_by(id_study=id).delete()    
+#     db.session.commit()
+#     flash('Study is deleted')
+#     return render_template('study_delete.html')
 @app.route('/sample_study', methods=['GET', 'POST'])
 def sample_study():
     form = Sample_studyForm()

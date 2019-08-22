@@ -5,33 +5,42 @@
 {% block content %}
 
     
-    <h1>{{ ('list sample') }}</h1>
+    <h1>{{ ('List sample') }}</h1>
 
         <table> 
             <tr>
                 <th>Sample ID</th>
                 <th>Number of sequences</th>
+                <th>Date</th>
                 <th>Batch</th>
                 <th>Organism</th>
-                <th></th>
-                <th></th>
+                <th>Location</th>
+                <th>Path of result1</th>
+                <th>Path2 of result2</th>
+                <th>Result1</th>
+                <th>Result2</th>
             </tr>
         {% for sample in samples %}
                 <tr>
                 <form method="GET" action="./list_sample" style="display: inline">
                     <th>{{sample.id_sample}}</th>
                     <th>{{sample.num_seq}}</th>
+                    <th>{{sample.date_time}}</th>
                     <th>{{sample.batch}}</th>
                     <th>{{sample.organism}}</th>
+                    <th>{{sample.location}}</th>
+                    <th>{{sample.path_r1}}</th>
+                    <th>{{sample.path_r2}}</th>
+                    <th>{{sample.result1}}</th>
+                    <th>{{sample.result2}}</th>
                 </form>
                 <form method="POST" action="./list_sample" style="display: inline">    
                     <th>
-                    
-                            <button type="submit" name="modify" value="{{  sample.id_sample  }}">Modify</button>                        
+                        <button type="submit" name="modify" value="{{  sample.id_sample  }}">Modify</button>                        
                     </th>
                     <th>
-                            <button type="submit" name="delete" value="{{  sample.id_sample  }}">Delete</button>                        
-                           
+     
+                        <button type="submit" name="delete" value="{{  sample.id_sample  }}">Delete</button>                               
                     </th>
                 </form>
                 </tr>
