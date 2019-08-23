@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<body>  
+<form method="POST" style="display: inline">
+    <table>
+        <tr>
+            <th>Study ID:</th>
+            <th>{{study.id_study}}</th>
+                <input type="hidden" value="{{study.id_study}}" name="id_study"></th>
+        </tr>
+        <tr>
+                <th>Date study:</th>
+                <th><input type="text" value="{{study.date_study}}" name="date_study"></th>
+        </tr>
+    
+        <tr>
+                <th>Result of study:</th>
+                <th><input type="text" value="{{study.result_study}}" name="result_study"></th>
+        </tr>
+
+    </table> 
+        <input type="submit" value="validate"> 
+</form>     
+</body>
+{% endblock %}   
+</html>
+        

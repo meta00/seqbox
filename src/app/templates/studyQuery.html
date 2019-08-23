@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+
+    
+    <h1>{{ ('List study') }}</h1>
+
+        <table> 
+            <tr>
+                <th>Study ID</th>
+                <th>Date study</th>
+                <th>Result of study</th>
+            </tr>
+        {% for study in studys %}
+                <tr>
+                <form method="GET" action="./list_study" style="display: inline">
+                    <th>{{study.id_study}}</th>
+                    <th>{{study.date_study}}</th>
+                    <th>{{study.result_study}}</th>
+                </form>
+                <form method="POST" action="./list_study" style="display: inline">    
+                    <th>
+                        <button type="submit" name="modify" value="{{ study.id_study }}">Modify</button>                        
+                    </th>
+                    <th>
+     
+                        <button type="submit" name="delete" value="{{ study.id_study }}">Delete</button>                               
+                    </th>
+                </form>
+                </tr>
+        {% endfor %}
+        </table>
+{% endblock %}        
+</html> 
