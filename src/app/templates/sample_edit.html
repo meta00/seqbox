@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<body>  
+<form method="POST" style="display: inline">
+    <table>
+        <tr>
+            <th>Sample ID:</th>
+            <th>{{sample.id_sample}}
+                    <input type="hidden" value="{{sample.id_sample}}" name="id_sample"></th>
+        </tr>
+        <tr>
+                <th>Number of sequences:</th>
+                <th><input type="text" value="{{sample.num_seq}}" name="num_seq"></th>
+        </tr>
+        <tr>
+                <th>Date:</th>
+                <th><input type="text" value="{{sample.date_time}}" name="date_time"></th>
+        </tr>
+        
+        <tr>
+                <th>Batch:</th>
+                <th><input type="text" value="{{sample.batch}}" name="batch"></th>
+        </tr>
+
+        
+        <tr>
+                <th>Organism:</th>
+                <th><input type="text" value="{{sample.organism}}" name="organism"></th>
+        </tr>
+        
+        <tr>
+                <th>Location:</th>
+                <th><input type="text" value="{{sample.location}}" name="location"></th>
+        </tr>
+        
+        <tr>
+                <th>Path of result1:</th>
+                <th><input type="text" value="{{sample.path_r1}}" name="path_r1"></th>
+        </tr>
+        
+        <tr>
+                <th>Path of result2:</th>
+                <th><input type="text" value="{{sample.path_r2}}" name="path_r2"></th>
+        </tr>
+        
+        <tr>
+                <th>Result1:</th>
+                <th><input type="text" value="{{sample.result1}}" name="result1"></th>
+        </tr>
+        
+        <tr>
+                <th>Result2:</th>
+                <th><input type="text" value="{{sample.result2}}" name="result2"></th>
+        </tr>
+    </table> 
+        <input type="submit" value="validate"> 
+</form> 
+</body>
+{% endblock %}   
+</html>
+        
+        

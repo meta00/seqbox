@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<body>  
+<form method="POST" action="{{ url_for('index') }}" style="display: inline">
+    <table>
+         <tr>
+            <th>Sample ID</th>
+            <th>Number of sequences</th>
+            <th>Batch</th>
+            <th>Organism</th>
+          
+         </tr>
+        {% for sample in samples %}
+        <tr>
+            <th>{{sample.id_sample}}</th>
+            <th>{{sample.num_seq}}</th>
+            <th>{{sample.batch}}</th>
+            <th>{{sample.organism}}</th>
+                    
+        </tr>
+        
+            <input type="hidden" value="{{sample.id_sample}}" name="id_sample">
+            
+        
+
+        {% endfor %}
+        </table>
+        
+
+    </td>
+{% endblock %}        
+</html> 

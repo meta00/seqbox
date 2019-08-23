@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<body>  
+<form method="POST" style="display: inline">
+    <table>
+        <tr>
+            <th>Batch ID:</th>
+            <th>{{batch.id_batch}}</th>
+                <input type="hidden" value="{{batch.id_batch}}" name="id_batch"></th>
+        </tr>
+        <tr>
+                <th>Name batch:</th>
+                <th><input type="text" value="{{batch.name_batch}}" name="name_batch"></th>
+        </tr>
+        <tr>
+                <th>Date batch:</th>
+                <th><input type="text" value="{{batch.date_batch}}" name="date_batch"></th>
+        </tr>
+        
+        <tr>
+                <th>Instrument:</th>
+                <th><input type="text" value="{{batch.instrument}}" name="instrument"></th>
+        </tr>
+        
+        <tr>
+                <th>Primer:</th>
+                <th><input type="text" value="{{batch.primer}}" name="primer"></th>
+        </tr>
+        
+    </table> 
+        <input type="submit" value="validate"> 
+</form>     
+</body>
+{% endblock %}   
+</html>
+        
+        

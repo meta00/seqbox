@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+
+    
+    <h1>{{ ('List result2') }}</h1>
+
+        <table> 
+            <tr>
+                <th>Result2 ID</th>
+                <th>Mykrobe version</th>
+                <th>Phylo group</th>
+                <th>Phylo group coverage</th>
+                <th>Phylo group depth</th>
+                <th>Species</th>
+                <th>Species coverage</th>
+                <th>Species depth</th>
+                <th>Lineage</th>
+                <th>Lineage coverage</th>
+                <th>Lineage coverage depth</th>
+                <th>Susceptibility</th>
+                <th>Variants</th>
+                <th>Genes</th>
+                <th>Drug</th>
+            </tr>
+        {% for result2 in result2s  %}
+                <tr>
+                <form method="GET" action="./list_result2" style="display: inline">
+                    <th>{{result2.id_result2}}</th>
+                    <th>{{result2.mykrobe_version}}</th>
+                    <th>{{result2.phylo_grp}}</th>
+                    <th>{{result2.phylo_grp_covg}}</th>
+                    <th>{{result2.phylo_grp_depth}}</th>
+                    <th>{{result2.species}}</th>
+                    <th>{{result2.species_covg}}</th>
+                    <th>{{result2.species_depth}}</th>
+                    <th>{{result2.lineage}}</th>
+                    <th>{{result2.lineage_covg}}</th>
+                    <th>{{result2.lineage_depth}}</th>
+                    <th>{{result2.susceptibility}}</th>
+                    <th>{{result2.variants}}</th>
+                    <th>{{result2.genes}}</th>
+                    <th>{{result2.drug}}</th>
+                </form>
+                <form method="POST" action="./list_result2" style="display: inline">    
+                    <th>
+                        <button type="submit" name="modify" value="{{  result2.id_result2 }}">Modify</button>                        
+                    </th>
+                    <th>
+     
+                        <button type="submit" name="delete" value="{{  result2.id_result2  }}">Delete</button>                               
+                    </th>
+                </form>
+                </tr>
+        {% endfor %}
+        </table>
+{% endblock %}        
+</html> 

@@ -93,18 +93,19 @@ class Sample(db.Model):
     num_seq = db.Column(db.VARCHAR(60))
     date_time =db.Column(db.DATETIME)
     organism = db.Column(db.VARCHAR(30)) 
-    batch = db.Column(db.VARCHAR(50),db.ForeignKey("batch.id_batch"))
-    batchs = db.relationship("Batch", backref=backref("sample",uselist=False))
-    location = db.Column(db.VARCHAR(50), db.ForeignKey("location.id_location"))
-    locations = db.relationship("Location", backref=backref("sample",uselist=False))
+    batch = db.Column(db.VARCHAR(50),db.ForeignKey("batch.id_batch",onupdate="cascade",ondelete="set null"),nullable=True)
+    batchs = db.relationship("Batch", backref=backref("sample",passive_updates=True,passive_deletes=True))
+    location = db.Column(db.VARCHAR(50), db.ForeignKey("location.id_location",onupdate="cascade",ondelete="set null"),nullable=True)
+    locations = db.relationship("Location", backref=backref("sample",passive_updates=True,passive_deletes=True))
     path_r1 = db.Column(db.VARCHAR(40))
     path_r2 = db.Column(db.VARCHAR(40))
-    result1 = db.Column(db.Integer, db.ForeignKey("result1.id_result1")) 
-    results1 = db.relationship("Result1", backref=backref("sample",uselist=False))
-    result2 = db.Column(db.Integer, db.ForeignKey("result2.id_result2"))
-    results2 = db.relationship("Result2", backref=backref("sample",uselist=False))
+    result1 = db.Column(db.Integer, db.ForeignKey("result1.id_result1",onupdate="cascade",ondelete="set null"),nullable=True) 
+    results1 = db.relationship("Result1", backref=backref("sample",passive_updates=True,passive_deletes=True))
+    result2 = db.Column(db.Integer, db.ForeignKey("result2.id_result2",onupdate="cascade",ondelete="set null"),nullable=True)
+    results2 = db.relationship("Result2", backref=backref("sample",passive_updates=True,passive_deletes=True))
 
     
+
     def __repr__(self):
         return "<Sample(id_sample='%s', num_seq='%s', organism='%s', batch='%s', date_time='%s', location='%s', path_r1='%s', path_r2='%s', result1='%s', result2='%s')>" % (self.id_sample,self.num_seq,self.organism,self.batch,self.date_time,self.location,self.path_r1,self.path_r2,self.result1,self.result2)
 
@@ -206,7 +207,7 @@ class Study(db.Model):
     result_study = db.Column(db.VARCHAR(80))
     
     def __repr__(self):
-        return '<Study {}>'.format(self.date_study)
+        return '<Study {}>'.format(self.result_study)
 
 class Sample_study(db.Model):
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<body>  
+<form method="POST" style="display: inline">
+    <table>
+        <tr>
+            <th>Result2 ID:</th>
+            <th>{{result2.id_result2}}
+                    <input type="hidden" value="{{result2.id_result2}}" name="id_result2"></th>
+        </tr>
+        <tr>
+                <th>Mykrobe version:</th>
+                <th><input type="text" value="{{result2.mykrobe_version}}" name="mykrobe_version"></th>
+        </tr>
+        <tr>
+                <th>Phylo group:</th>
+                <th><input type="text" value="{{result2.phylo_grp}}" name="phylo_grp"></th>
+        </tr>
+        
+        <tr>
+                <th>Phylo group coverage:</th>
+                <th><input type="text" value="{{result2.phylo_grp_covg}}" name="phylo_grp_covg"></th>
+        </tr>
+
+        
+        <tr>
+                <th>Phylo group depth:</th>
+                <th><input type="text" value="{{result2.phylo_grp_depth}}" name="phylo_grp_depth"></th>
+        </tr>
+        
+        <tr>
+                <th>Species:</th>
+                <th><input type="text" value="{{result2.species}}" name="species"></th>
+        </tr>
+        
+        <tr>
+                <th>Species coverage:</th>
+                <th><input type="text" value="{{result2.species_covg}}" name="species_covg"></th>
+        </tr>
+        
+        <tr>
+                <th>Species depth:</th>
+                <th><input type="text" value="{{result2.species_depth}}" name="species_depth"></th>
+        </tr>
+        
+        <tr>
+                <th>Lineage:</th>
+                <th><input type="text" value="{{result2.lineage}}" name="lineage"></th>
+        </tr>
+        
+        <tr>
+                <th>Lineage coverage:</th>
+                <th><input type="text" value="{{result2.lineage_covg}}" name="lineage_covg"></th>
+        </tr>
+        <tr>
+                <th>Lineage coverage depth:</th>
+                <th><input type="text" value="{{result2.lineage_depth}}" name="lineage_depth"></th>
+        </tr>
+        <tr>
+                <th>Susceptibility:</th>
+                <th><input type="text" value="{{result2.susceptibility}}" name="susceptibility"></th>
+        </tr>
+        <tr>
+                <th>Variants:</th>
+                <th><input type="text" value="{{result2.variants}}" name="variants"></th>
+        </tr>
+        <tr>
+                <th>Genes:</th>
+                <th><input type="text" value="{{result2.genes}}" name="genes"></th>
+        </tr>
+        <tr>
+                <th>Drug:</th>
+                <th><input type="text" value="{{result2.drug}}" name="drug"></th>
+        </tr>
+    </table> 
+        <input type="submit" value="validate"> 
+</form> 
+</body>
+{% endblock %}   
+</html>
+        
+        

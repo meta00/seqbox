@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<body>  
+<form method="POST" style="display: inline">
+    <table>
+        <tr>
+            <th>Location  ID:</th>
+            <th>{{location.id_location}}</th>
+                <input type="hidden" value="{{location.id_location}}" name="id_location"></th>
+        </tr>
+        <tr>
+                <th>Continent:</th>
+                <th><input type="text" value="{{location.continent}}" name="continent"></th>
+        </tr>
+        <tr>
+                <th>Country:</th>
+                <th><input type="text" value="{{location.country}}" name="country"></th>
+        </tr>
+        
+        <tr>
+                <th>Province:</th>
+                <th><input type="text" value="{{location.province}}" name="province"></th>
+        </tr>
+        
+        <tr>
+                <th>City:</th>
+                <th><input type="text" value="{{location.city}}" name="city"></th>
+        </tr>
+
+    </table> 
+        <input type="submit" value="validate"> 
+</form>     
+</body>
+{% endblock %}   
+</html>
+        
+        

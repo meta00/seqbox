@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+
+    
+    <h1>{{ ('List Location') }}</h1>
+
+        <table> 
+            <tr>
+                <th>Location ID</th>
+                <th>Continent</th>
+                <th>Country</th>
+                <th>Province</th>
+                <th>City</th>
+
+            </tr>
+        {% for location in locations %}
+                <tr>
+                <form method="GET" action="./list_location" style="display: inline">
+                    <th>{{location.id_location}}</th>
+                    <th>{{location.continent}}</th>
+                    <th>{{location.country}}</th>
+                    <th>{{location.province}}</th>
+                    <th>{{location.city }}</th>
+                </form>
+                <form method="POST" action="./list_location" style="display: inline">    
+                    <th>
+                        <button type="submit" name="modify" value="{{  location.id_location  }}">Modify</button>                        
+                    </th>
+                    <th>
+     
+                        <button type="submit" name="delete" value="{{  location.id_location  }}">Delete</button>                               
+                    </th>
+                </form>
+                </tr>
+        {% endfor %}
+        </table>
+{% endblock %}        
+</html> 

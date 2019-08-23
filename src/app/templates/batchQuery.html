@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+
+    
+    <h1>{{ ('List Batch') }}</h1>
+
+        <table> 
+            <tr>
+                <th>Batch ID</th>
+                <th>Name batch </th>
+                <th>Date batch</th>
+                <th>Instrument</th>
+                <th>Primer</th>
+            </tr>
+        {% for batch in batchs %}
+                <tr>
+                <form method="GET" action="./list_sample" style="display: inline">
+                    <th>{{batch.id_batch}}</th>
+                    <th>{{batch.name_batch}}</th>
+                    <th>{{batch.date_batch}}</th>
+                    <th>{{batch.instrument}}</th>
+                    <th>{{batch.primer}}</th>
+
+                </form>
+                <form method="POST" action="./list_batch" style="display: inline">    
+                    <th>
+                        <button type="submit" name="modify" value="{{  batch.id_batch  }}">Modify</button>                        
+                    </th>
+                    <th>
+     
+                        <button type="submit" name="delete" value="{{  batch.id_batch  }}">Delete</button>                               
+                    </th>
+                </form>
+                </tr>
+        {% endfor %}
+        </table>
+{% endblock %}        
+</html> 

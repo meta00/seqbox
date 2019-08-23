@@ -18,20 +18,22 @@
                         <option value="/study">Study<option>
                         <option value="/sample_study">Sample_study<option>
                     </select>
-                    <input type="submit" value="Add">
+                        <input type="submit" value="Add">
                 </form>
 
                 <form action="/" method="post">
                     <select  onchange ="if (this.value)window.location.href=this.value">
                         <option value="/seqbox">Seqbox<option>
-                        <option value="/sample_delete">Sample_delete<option>
-                        <option value="/">Sample_edit<option>
-                        <option value="/add_sample">Add_sample<option>
+                        <option value="/list_batch">List_batch<option>
                         <option value="/list_sample">List_sample<option>
+                        <option value="/list_location">List_location<option>
+                        <option value="/list_result1">List_result1<option>
+                        <option value="/list_result2">List_result2<option>
+                        <option value="/list_study">List_study<option>
                           
                         
                     </select>
-                    <input type="submit" value="Query">
+                       <input type="submit" value="Query">
                 </form>
     </div>
     {% endfor %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang = "en">
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<body>  
+<form method="POST" style="display: inline">
+    <table>
+        <tr>
+            <th>Result1 ID:</th>
+            <th>{{result1.id_result1}}</th>
+                <input type="hidden" value="{{result1.id_result1}}" name="id_result1"></th>
+        </tr>
+        <tr>
+                <th>QC:</th>
+                <th><input type="text" value="{{result1.qc}}" name="qc"></th>
+        </tr>
+    
+        <tr>
+                <th>QL:</th>
+                <th><input type="text" value="{{result1.ql}}" name="ql"></th>
+        </tr>
+        
+        
+        <tr>
+                <th>Description:</th>
+                <th><input type="text" value="{{result1.description}}" name="description"></th>
+        </tr>
+        
+        <tr>
+                <th>Snapper of variants:</th>
+                <th><input type="text" value="{{result1.snapper_variants}}" name="snapper_variants"></th>
+        </tr>
+        
+        <tr>
+                <th>Snapper of ignored</th>
+                <th><input type="text" value="{{result1.snapper_ignored}}" name="snapper_ignored"></th>
+        </tr>
+        
+        <tr>
+                <th>Number of heterozygous:</th>
+                <th><input type="text" value="{{result1.num_heterozygous}}" name="num_heterozygous"></th>
+        </tr>
+        
+        <tr>
+                <th>Mean of depth:</th>
+                <th><input type="text" value="{{result1.mean_depth}}" name="mean_depth"></th>
+        </tr>
+        <tr>
+                <th>Coverage:</th>
+                <th><input type="text" value="{{result1.coverage}}" name="coverage"></th>
+        </tr>
+    </table> 
+        <input type="submit" value="validate"> 
+</form>     
+</body>
+{% endblock %}   
+</html>
+        
+        

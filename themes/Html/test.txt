@@ -80,7 +80,7 @@ if __name__ == "__main__":
         <tr>
           <td>
             {{book.title}}
-          </td>
+            </td>
           <td>
             <form method="POST" action="./update" style="display: inline">
               <input type="hidden" value="{{book.title}}" name="oldtitle">
